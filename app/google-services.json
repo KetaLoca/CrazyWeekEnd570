@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "212699866488",
+    "project_id": "crazyweekend570",
+    "storage_bucket": "crazyweekend570.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212699866488:android:33642d5778a7c8ebc1548d",
+        "android_client_info": {
+          "package_name": "com.ketaloca.crazyweekend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3P82QCuIz7kLuZUe_iLI4gOtaJGAn4xM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
