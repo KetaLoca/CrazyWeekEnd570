@@ -4,12 +4,14 @@ import com.google.type.LatLng
 import java.time.LocalDate
 
 class DataClasses {
-    data class user(var iduser: Int, var email: String, var reservas: ArrayList<reserva>)
+    class user(var email:String) {
+        lateinit var reservas: ArrayList<reserva>
+    }
 
 
     data class hotel(
         var idhotel: Int,
-        var idmanager: Int,
+        var emailgerente: String,
         var nombre: String,
         var habitaciones: ArrayList<habitacion>,
         var ubicacion: LatLng

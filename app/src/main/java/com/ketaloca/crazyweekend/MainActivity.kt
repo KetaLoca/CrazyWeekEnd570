@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 .create()
                 .show()
-        } else if (true) {
+        } else
             auth.signInWithEmailAndPassword(
                 txtemail.text.toString(),
                 txtpassword.text.toString()
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                         .setPositiveButton("Aceptar") { dialog, _ ->
                             txtemail.text.clear()
                             txtpassword.text.clear()
+                            txtemail.requestFocus()
                             val intent = Intent(this, HomeActivity::class.java)
                             startActivity(intent)
                         }
@@ -91,11 +92,9 @@ class MainActivity : AppCompatActivity() {
                         .show()
                 }
             }
-        }
     }
 
     private fun registrar() {
-
         val auth = FirebaseAuth.getInstance()
         val txtemail: EditText = findViewById(R.id.viewemail)
         val txtpassword: EditText = findViewById(R.id.txtpassword)
@@ -118,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 .create()
                 .show()
-        } else if (true) {
+        } else
             auth.createUserWithEmailAndPassword(
                 txtemail.text.toString(),
                 txtpassword.text.toString()
@@ -146,8 +145,9 @@ class MainActivity : AppCompatActivity() {
                         .show()
                 }
             }
-        }
+
     }
+
 }
 
 

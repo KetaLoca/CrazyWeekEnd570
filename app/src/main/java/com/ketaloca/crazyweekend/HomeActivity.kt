@@ -1,5 +1,6 @@
 package com.ketaloca.crazyweekend
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -21,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
         inicio()
+        botones()
     }
 
     private fun inicio() {
@@ -34,5 +36,24 @@ class HomeActivity : AppCompatActivity() {
         if (email != null) {
             viewemail.text = email
         }
+    }
+
+    private fun botones() {
+        val btnlogout: Button = findViewById(R.id.btnLogOut)
+        val btnreservar: Button = findViewById(R.id.btnreservar)
+        val btnofertar: Button = findViewById(R.id.btnofertar)
+        val btnMisReservas: Button = findViewById(R.id.btnMisReservas)
+        val btnMisHoteles: Button = findViewById(R.id.btnMisHoteles)
+
+        btnlogout.setOnClickListener() {
+            LogOut()
+        }
+    }
+
+    private fun LogOut() {
+        val intent = Intent(this, MainActivity::class.java)
+        val auth = FirebaseAuth.getInstance()
+        auth.signOut()
+        finish()
     }
 }
