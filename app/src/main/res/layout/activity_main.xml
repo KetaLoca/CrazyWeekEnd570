@@ -25,7 +25,7 @@
             android:layout_height="25dp" />
 
         <EditText
-            android:id="@+id/txtemail"
+            android:id="@+id/viewemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
