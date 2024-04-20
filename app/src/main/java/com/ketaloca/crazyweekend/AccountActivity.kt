@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ketaloca.crazyweekend.FirebaseDriver
 
 class AccountActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,22 +27,20 @@ class AccountActivity : AppCompatActivity() {
         }
         inicio()
         botones()
+
     }
 
     private fun inicio() {
+        val txtemail: TextView = findViewById(R.id.txtemail)
         val auth = FirebaseAuth.getInstance()
         val email: String? = auth.currentUser?.email.toString()
-        val txtemail: TextView = findViewById(R.id.txtemail)
-        val txtnombre: EditText = findViewById(R.id.txtnombre)
-        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
-
         txtemail.text = email
     }
 
     private fun botones() {
+        val btnborrar: Button = findViewById(R.id.btneliminar)
         val btnguardar: Button = findViewById(R.id.btnguardar)
-        val btnborrar:Button=findViewById(R.id.btneliminar)
-        val btnlimpiar:Button=findViewById(R.id.btnlimpiar)
+        val btnlimpiar: Button = findViewById(R.id.btnlimpiar)
         val btnLogo: ImageView = findViewById(R.id.btnLogo)
         val txtemail: TextView = findViewById(R.id.txtemail)
         val txtnombre: EditText = findViewById(R.id.txtnombre)
@@ -69,14 +68,27 @@ class AccountActivity : AppCompatActivity() {
                     .create()
                     .show()
             } else {
-                val db = FirebaseFirestore.getInstance()
-                db.collection("users").document(txtemail.text.toString()).set(
-                    hashMapOf(
-                        "nombre" to txtnombre.text.toString(),
-                        "apellidos" to txtapellidos.text.toString()
-                    )
-                )
+                val user = recogerUser()
+                val driver = FirebaseDriver()
+                driver.addUser(user)
             }
         }
+
+        btnborrar.setOnClickListener() {
+            val driver = FirebaseDriver()
+            driver.deleteUser(txtemail.text.toString())
+        }
+
     }
+
+    fun recogerUser(): DataClasses.user {
+        val txtemail: TextView = findViewById(R.id.txtemail)
+        val txtnombre: EditText = findViewById(R.id.txtnombre)
+        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
+        val user = DataClasses.user(txtemail.text.toString())
+        user.nombre = txtnombre.text.toString()
+        user.apellidos = txtapellidos.text.toString()
+        return user
+    }
+
 }
