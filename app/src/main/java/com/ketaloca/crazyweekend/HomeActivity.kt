@@ -44,9 +44,15 @@ class HomeActivity : AppCompatActivity() {
         val btnofertar: Button = findViewById(R.id.btnofertar)
         val btnMisReservas: Button = findViewById(R.id.btnMisReservas)
         val btnMisHoteles: Button = findViewById(R.id.btnMisHoteles)
+        val btnMiCuenta: Button = findViewById(R.id.btnMiCuenta)
 
         btnlogout.setOnClickListener() {
             LogOut()
+        }
+
+        btnMiCuenta.setOnClickListener() {
+            val intent = Intent(this, AccountActivity::class.java)
+            startActivity(intent)
         }
     }
 

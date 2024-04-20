@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E81CC451"
+    android:background="#009688"
     tools:context=".HomeActivity">
 
     <LinearLayout
@@ -132,6 +132,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mis hoteles" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnMiCuenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mi cuenta" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
