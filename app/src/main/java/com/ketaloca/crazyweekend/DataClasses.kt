@@ -4,9 +4,7 @@ import com.google.type.LatLng
 import java.time.LocalDate
 
 class DataClasses {
-    class user(var email: String) {
-        lateinit var nombre: String
-        lateinit var apellidos: String
+    class user(var email: String, var nombre: String, var apellidos: String) {
         lateinit var reservas: ArrayList<reserva>
     }
 

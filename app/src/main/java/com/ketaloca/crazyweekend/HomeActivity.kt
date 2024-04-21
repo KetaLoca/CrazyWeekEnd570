@@ -26,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun inicio() {
-
+        title = "Home"
         val auth = FirebaseAuth.getInstance()
         val email: String? = auth.currentUser?.email
         val viewemail: TextView = findViewById(R.id.viewemail)

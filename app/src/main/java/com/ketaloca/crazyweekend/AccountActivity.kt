@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.set
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ketaloca.crazyweekend.FirebaseDriver
+import com.google.firebase.firestore.toObject
 
 class AccountActivity : AppCompatActivity() {
 
@@ -31,10 +32,19 @@ class AccountActivity : AppCompatActivity() {
     }
 
     private fun inicio() {
+        title = "Mi Cuenta"
         val txtemail: TextView = findViewById(R.id.txtemail)
-        val auth = FirebaseAuth.getInstance()
-        val email: String? = auth.currentUser?.email.toString()
+        val txtnombre: EditText = findViewById(R.id.txtnombre)
+        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        val email: String? = auth.currentUser?.email
+        val driver = FirebaseDriver()
+
         txtemail.text = email
+        val user = driver.getUser(txtemail.text.toString())
+        txtnombre.setText(user.nombre)
+        txtapellidos.setText(user.apellidos)
+
     }
 
     private fun botones() {
@@ -70,7 +80,7 @@ class AccountActivity : AppCompatActivity() {
             } else {
                 val user = recogerUser()
                 val driver = FirebaseDriver()
-                driver.addUser(user)
+                driver.addUser(user!!)
             }
         }
 
@@ -81,11 +91,15 @@ class AccountActivity : AppCompatActivity() {
 
     }
 
-    fun recogerUser(): DataClasses.user {
+    fun recogerUser(): DataClasses.user? {
         val txtemail: TextView = findViewById(R.id.txtemail)
         val txtnombre: EditText = findViewById(R.id.txtnombre)
         val txtapellidos: EditText = findViewById(R.id.txtapellidos)
-        val user = DataClasses.user(txtemail.text.toString())
+        val user = DataClasses.user(
+            txtemail.text.toString(),
+            txtnombre.text.toString(),
+            txtapellidos.text.toString()
+        )
         user.nombre = txtnombre.text.toString()
         user.apellidos = txtapellidos.text.toString()
         return user
