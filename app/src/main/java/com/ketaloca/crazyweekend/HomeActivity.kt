@@ -3,7 +3,6 @@ package com.ketaloca.crazyweekend
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun botones() {
         val btnlogout: Button = findViewById(R.id.btnLogOut)
-        val btnreservar: Button = findViewById(R.id.btnreservar)
+        val btnbuscar: Button = findViewById(R.id.btnBuscar)
         val btnofertar: Button = findViewById(R.id.btnofertar)
         val btnMisReservas: Button = findViewById(R.id.btnMisReservas)
         val btnMisHoteles: Button = findViewById(R.id.btnMisHoteles)
@@ -52,6 +51,16 @@ class HomeActivity : AppCompatActivity() {
 
         btnMiCuenta.setOnClickListener() {
             val intent = Intent(this, AccountActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnbuscar.setOnClickListener() {
+            val intent = Intent(this, BuscarActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnofertar.setOnClickListener() {
+            val intent = Intent(this, OfertarActivity::class.java)
             startActivity(intent)
         }
     }
