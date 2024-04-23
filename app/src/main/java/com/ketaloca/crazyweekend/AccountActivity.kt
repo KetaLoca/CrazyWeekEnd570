@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
+import com.ketaloca.crazyweekend.controlador.FirebaseDriver
+import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
 
 class AccountActivity : AppCompatActivity() {

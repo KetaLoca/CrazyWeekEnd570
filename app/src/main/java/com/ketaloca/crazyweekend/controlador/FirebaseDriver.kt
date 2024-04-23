@@ -1,10 +1,10 @@
-package com.ketaloca.crazyweekend
+package com.ketaloca.crazyweekend.controlador
 
-import android.app.AlertDialog
 import android.content.Context
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.tasks.await
 
 class FirebaseDriver {
