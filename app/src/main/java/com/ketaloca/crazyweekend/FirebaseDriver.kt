@@ -1,48 +1,44 @@
 package com.ketaloca.crazyweekend
 
 import android.app.AlertDialog
-import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
+import android.content.Context
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.tasks.await
 
 class FirebaseDriver {
-    private val db = FirebaseFirestore.getInstance()
-    fun addUser(user: DataClasses.user) {
-        db.collection("users").document(user.email).set(
-            hashMapOf(
-                "nombre" to user.nombre,
-                "apellidos" to user.apellidos
-            )
-        )
+    private val db = Firebase.firestore
+    fun addUser(user: DataClasses.user, context: Context) {
+        db.collection("users").document(user.email!!).set(user).addOnSuccessListener {
+            val builder = androidx.appcompat.app.AlertDialog.Builder(context)
+                .setTitle("Usuario actualizado")
+                .setMessage("Datos del usuario actualizados correctamente")
+                .setPositiveButton("Entendido") { dialog, _ ->
+                }
+                .create()
+                .show()
+        }
+            .addOnFailureListener {
+                val builder = androidx.appcompat.app.AlertDialog.Builder(context)
+                    .setTitle("Error")
+                    .setMessage("Ha ocurrido un error actualizando el usuario")
+                    .setPositiveButton("Entendido") { dialog, _ ->
+                    }
+                    .create()
+                    .show()
+            }
+
     }
 
     fun deleteUser(email: String) {
         db.collection("users").document(email).delete()
     }
 
-    fun getUser(email: String): DataClasses.user {
-        val db = FirebaseFirestore.getInstance()
-        val docRef = db.collection("users").document(email)
-        var user: DataClasses.user = DataClasses.user("", "Usuario", "vacío")
-        docRef.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val document = task.result
-                if (document.exists()) {
-                    val data = document.data
-                    val hashMap = data as HashMap<String, Any>
-
-                    val nombre:String = hashMap["nombre"] as String
-                    val apellidos:String = hashMap["apellidos"] as String
-                    user.nombre = nombre
-                    user.apellidos = apellidos
-
-                } else {
-                    println("El documento no existe")
-                }
-            } else {
-                println("Error al leer el documento: ${task.exception}")
-            }
-        }
-        return user
+    suspend fun getUser(email: String?): DataClasses.user? {
+        val docRef = db.collection("users").document(email!!)
+        val document = docRef.get().await()
+        return document.toObject<DataClasses.user>()
     }
+
 }

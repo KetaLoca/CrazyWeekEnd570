@@ -16,11 +16,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnlimpiar"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Limpiar Campos" />
+            android:layout_height="12dp" />
 
         <TextView
             android:id="@+id/txtemail"
@@ -58,15 +56,6 @@
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <EditText
-            android:id="@+id/txtFechaNacimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Fecha nacimiento"
-            android:inputType="date"
-            android:textAlignment="center" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,13 +67,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Guardar" />
-
-            <Button
-                android:id="@+id/btnbuscar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Buscar" />
 
             <Button
                 android:id="@+id/btneliminar"

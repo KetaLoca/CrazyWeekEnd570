@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.set
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.runBlocking
 
 class AccountActivity : AppCompatActivity() {
 
@@ -26,72 +26,48 @@ class AccountActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        inicio()
         botones()
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        actualizarCampos()
+    }
+
     private fun inicio() {
         title = "Mi Cuenta"
-        val txtemail: TextView = findViewById(R.id.txtemail)
-        val txtnombre: EditText = findViewById(R.id.txtnombre)
-        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
-        val auth: FirebaseAuth = FirebaseAuth.getInstance()
-        val email: String? = auth.currentUser?.email
-        val driver = FirebaseDriver()
-
-        txtemail.text = email
-        val user = driver.getUser(txtemail.text.toString())
-        txtnombre.setText(user.nombre)
-        txtapellidos.setText(user.apellidos)
-
     }
 
     private fun botones() {
+        val txtemail: TextView = findViewById(R.id.txtemail)
         val btnborrar: Button = findViewById(R.id.btneliminar)
         val btnguardar: Button = findViewById(R.id.btnguardar)
-        val btnlimpiar: Button = findViewById(R.id.btnlimpiar)
         val btnLogo: ImageView = findViewById(R.id.btnLogo)
-        val txtemail: TextView = findViewById(R.id.txtemail)
-        val txtnombre: EditText = findViewById(R.id.txtnombre)
-        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
+        val driver = FirebaseDriver()
 
         btnLogo.setOnClickListener() {
             finish()
         }
 
-        btnlimpiar.setOnClickListener() {
-            txtnombre.text.clear()
-            txtapellidos.text.clear()
-        }
-
         btnguardar.setOnClickListener() {
-            if (txtnombre.text.isEmpty() || txtapellidos.text.isEmpty()) {
-                val builder = AlertDialog.Builder(this)
-                    .setTitle("Datos incompletos")
-                    .setMessage("Por favor, introduzca nombre y apellidos")
-                    .setPositiveButton("Aceptar") { dialog, _ ->
-                        txtnombre.text.clear()
-                        txtapellidos.text.clear()
-                        txtnombre.requestFocus()
-                    }
-                    .create()
-                    .show()
-            } else {
+            if (comprobarCampos()) {
                 val user = recogerUser()
-                val driver = FirebaseDriver()
-                driver.addUser(user!!)
+                driver.addUser(user, this)
+                limpiarCampos()
+                actualizarCampos()
             }
         }
 
         btnborrar.setOnClickListener() {
-            val driver = FirebaseDriver()
             driver.deleteUser(txtemail.text.toString())
+            limpiarCampos()
+            actualizarCampos()
         }
 
     }
 
-    fun recogerUser(): DataClasses.user? {
+    private fun recogerUser(): DataClasses.user {
         val txtemail: TextView = findViewById(R.id.txtemail)
         val txtnombre: EditText = findViewById(R.id.txtnombre)
         val txtapellidos: EditText = findViewById(R.id.txtapellidos)
@@ -100,9 +76,58 @@ class AccountActivity : AppCompatActivity() {
             txtnombre.text.toString(),
             txtapellidos.text.toString()
         )
+        user.email = txtemail.text.toString()
         user.nombre = txtnombre.text.toString()
         user.apellidos = txtapellidos.text.toString()
         return user
     }
 
+    private fun comprobarCampos(): Boolean {
+        val txtnombre: EditText = findViewById(R.id.txtnombre)
+        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
+        var comprobacion = false
+        if (txtnombre.text.isEmpty() || txtapellidos.text.isEmpty()) {
+            val builder = AlertDialog.Builder(this)
+                .setTitle("Datos incompletos")
+                .setMessage("Por favor, introduzca nombre y apellidos")
+                .setPositiveButton("Aceptar") { dialog, _ ->
+                    txtnombre.text.clear()
+                    txtapellidos.text.clear()
+                    txtnombre.requestFocus()
+                }
+                .create()
+                .show()
+        } else {
+            comprobacion = true
+        }
+        return comprobacion
+    }
+
+    private fun limpiarCampos() {
+        val txtnombre: EditText = findViewById(R.id.txtnombre)
+        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
+
+        txtnombre.text.clear()
+        txtapellidos.text.clear()
+        txtnombre.clearFocus()
+        txtapellidos.clearFocus()
+    }
+
+    private fun actualizarCampos() {
+        val txtemail: TextView = findViewById(R.id.txtemail)
+        val txtnombre: EditText = findViewById(R.id.txtnombre)
+        val txtapellidos: EditText = findViewById(R.id.txtapellidos)
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        val email: String? = auth.currentUser?.email
+        val driver = FirebaseDriver()
+
+        txtemail.text = email
+        if (email != null) {
+            val user: DataClasses.user? = runBlocking { driver.getUser(email) }
+            if (user != null) {
+                txtnombre.setText(user.nombre)
+                txtapellidos.setText(user.apellidos)
+            }
+        }
+    }
 }

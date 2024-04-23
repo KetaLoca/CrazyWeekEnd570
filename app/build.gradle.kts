@@ -42,6 +42,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-database")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
