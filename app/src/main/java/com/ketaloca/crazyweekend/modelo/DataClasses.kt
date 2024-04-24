@@ -12,11 +12,11 @@ class DataClasses {
 
 
     data class hotel(
-        var idhotel: Int? = null,
-        var emailgerente: String? = null,
-        var nombre: String? = null,
-        var descripcion: String? = null,
-        var imagen:String?=null
+       // var idhotel: Int? = null,
+       // var emailgerente: String? = null,
+        val nombre: String? = null,
+        val descripcion: String? = null,
+       // var imagen:String?=null
     )
 
     data class habitacion(var numero: Int? = null, var idhotel: Int? = null)

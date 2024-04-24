@@ -3,9 +3,8 @@ package com.ketaloca.crazyweekend
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,132 +21,54 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         inicio()
+        botones()
     }
 
-    fun inicio() {
-        title = "Autenticación"
-        val btnlogin: Button = findViewById(R.id.btnlogin)
-        val btnregistrar: Button = findViewById((R.id.btnregistrar))
-        btnlogin.setOnClickListener() {
-            login()
+    private fun inicio() {
+        title = "Home"
+        val auth = FirebaseAuth.getInstance()
+        val email: String? = auth.currentUser?.email
+        val viewemail: TextView = findViewById(R.id.viewemail)
+        val viewreservas: TextView = findViewById(R.id.viewreservas)
+        val viewhoteles: TextView = findViewById(R.id.viewhoteles)
+
+        if (email != null) {
+            viewemail.text = email
+        }
+    }
+
+    private fun botones() {
+        val btnlogout: Button = findViewById(R.id.btnLogOut)
+        val btnbuscar: Button = findViewById(R.id.btnBuscar)
+        val btnofertar: Button = findViewById(R.id.btnofertar)
+        val btnMisReservas: Button = findViewById(R.id.btnMisReservas)
+        val btnMisHoteles: Button = findViewById(R.id.btnMisHoteles)
+        val btnMiCuenta: Button = findViewById(R.id.btnMiCuenta)
+
+        btnlogout.setOnClickListener() {
+            LogOut()
         }
 
-        btnregistrar.setOnClickListener() {
-            registrar()
+        btnMiCuenta.setOnClickListener() {
+            val intent = Intent(this, AccountActivity::class.java)
+            startActivity(intent)
         }
 
+        btnbuscar.setOnClickListener() {
+            val intent = Intent(this, BuscarActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnofertar.setOnClickListener() {
+            val intent = Intent(this, OfertarActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    private fun login() {
-
+    private fun LogOut() {
+        val intent = Intent(this, LoginActivity::class.java)
         val auth = FirebaseAuth.getInstance()
-        val txtemail: EditText = findViewById(R.id.viewemail)
-        val txtpassword: EditText = findViewById(R.id.txtpassword)
-
-        if (txtemail.text.isEmpty()) {
-            val builder = AlertDialog.Builder(this)
-                .setTitle("Datos incompletos")
-                .setMessage("Por favor, introduzca el correo electrónico")
-                .setPositiveButton("Aceptar") { dialog, _ ->
-                    txtemail.requestFocus()
-                }
-                .create()
-                .show()
-        } else if (txtpassword.text.isEmpty()) {
-            val builder = AlertDialog.Builder(this)
-                .setTitle("Datos incompletos")
-                .setMessage("Por favor, introduzca la contraseña")
-                .setPositiveButton("Aceptar") { dialog, _ ->
-                    txtpassword.requestFocus()
-                }
-                .create()
-                .show()
-        } else
-            auth.signInWithEmailAndPassword(
-                txtemail.text.toString(),
-                txtpassword.text.toString()
-            ).addOnCompleteListener() {
-                if (it.isSuccessful) {
-                    val builder = AlertDialog.Builder(this)
-                        .setTitle("Login correcto")
-                        .setMessage("Usuario logueado correctamente")
-                        .setPositiveButton("Aceptar") { dialog, _ ->
-                            txtemail.text.clear()
-                            txtpassword.text.clear()
-                            txtemail.requestFocus()
-                            val intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
-                        }
-                        .create()
-                        .show()
-                } else {
-                    val builder = AlertDialog.Builder(this)
-                        .setTitle("Ha ocurrido un error")
-                        .setMessage("No ha podido loguearse")
-                        .setPositiveButton("Aceptar") { dialog, _ ->
-                            txtemail.text.clear()
-                            txtpassword.text.clear()
-                        }
-                        .create()
-                        .show()
-                }
-            }
+        auth.signOut()
+        finish()
     }
-
-    private fun registrar() {
-        val auth = FirebaseAuth.getInstance()
-        val txtemail: EditText = findViewById(R.id.viewemail)
-        val txtpassword: EditText = findViewById(R.id.txtpassword)
-
-        if (txtemail.text.isEmpty()) {
-            val builder = AlertDialog.Builder(this)
-                .setTitle("Datos incompletos")
-                .setMessage("Por favor, introduzca el correo electrónico")
-                .setPositiveButton("Aceptar") { dialog, _ ->
-                    txtemail.requestFocus()
-                }
-                .create()
-                .show()
-        } else if (txtpassword.text.isEmpty()) {
-            val builder2 = AlertDialog.Builder(this)
-                .setTitle("Datos incompletos")
-                .setMessage("Por favor, introduzca la contraseña")
-                .setPositiveButton("Aceptar") { dialog, _ ->
-                    txtpassword.requestFocus()
-                }
-                .create()
-                .show()
-        } else
-            auth.createUserWithEmailAndPassword(
-                txtemail.text.toString(),
-                txtpassword.text.toString()
-            ).addOnCompleteListener() {
-                if (it.isSuccessful) {
-                    val builder = AlertDialog.Builder(this)
-                        .setTitle("Registro correcto")
-                        .setMessage("Usuario creado correctamente, ya puede loguearse")
-                        .setPositiveButton("Aceptar") { dialog, _ ->
-                            txtemail.text.clear()
-                            txtpassword.text.clear()
-                            txtemail.requestFocus()
-                        }
-                        .create()
-                        .show()
-                } else {
-                    val builder = AlertDialog.Builder(this)
-                        .setTitle("Ha ocurrido un error")
-                        .setMessage("Compruebe que los datos introducidos son correctos")
-                        .setPositiveButton("Aceptar") { dialog, _ ->
-                            txtemail.text.clear()
-                            txtpassword.text.clear()
-                        }
-                        .create()
-                        .show()
-                }
-            }
-
-    }
-
 }
-
-

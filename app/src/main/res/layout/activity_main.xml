@@ -11,56 +11,93 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="250dp">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="259dp"
-            app:srcCompat="@drawable/logoapp" />
+        android:orientation="vertical">
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="0dp" />
 
-        <EditText
-            android:id="@+id/viewemail"
+        <Button
+            android:id="@+id/btnLogOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Correo electrónico"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
+            android:text="Cerrar sesión"
+            android:textAlignment="center" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp" />
 
-        <EditText
-            android:id="@+id/txtpassword"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:layout_height="180dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/logoapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/logoapp" />
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
+        <TextView
+            android:id="@+id/viewemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textAlignment="center"
+            android:textColor="#673AB7"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/viewreservas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nº reservas"
+            android:textAlignment="center"
+            android:textColor="#673AB7"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/viewhoteles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nº hoteles gestionados"
+            android:textAlignment="center"
+            android:textColor="#673AB7"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnlogin"
+                android:id="@+id/btnBuscar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Iniciar sesión" />
+                android:text="Buscar" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -68,12 +105,43 @@
                 android:layout_weight="0.05" />
 
             <Button
-                android:id="@+id/btnregistrar"
+                android:id="@+id/btnofertar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Registrarse" />
+                android:text="Ofertar" />
+
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnMisReservas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mis reservas" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnMisHoteles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mis hoteles" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnMiCuenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mi cuenta" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
