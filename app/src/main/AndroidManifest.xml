@@ -13,16 +13,16 @@
         android:theme="@style/Theme.CrazyWeekEnd"
         tools:targetApi="31">
         <activity
-            android:name=".BuscarActivity"
+            android:name=".vista.BuscarActivity"
             android:exported="false" />
         <activity
-            android:name=".AccountActivity"
+            android:name=".vista.AccountActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".vista.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".vista.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
