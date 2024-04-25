@@ -51,4 +51,20 @@ class FirebaseDriver {
         db.collection("alojamientos").document(alojamiento.id!!).set(alojamiento)
     }
 
+    suspend fun getAlojamiento(idAlojamiento: String): DataClasses.alojamiento? {
+        val docRef = db.collection("alojamientos").document(idAlojamiento)
+        val document = docRef.get().await()
+        return document.toObject<DataClasses.alojamiento>()
+    }
+
+
+    suspend fun getAlojamientosList(): List<DataClasses.alojamiento> {
+        val collectionRef = db.collection("alojamientos")
+        val snapshot = collectionRef.get().await()
+
+        return snapshot.documents.map { document ->
+            document.toObject<DataClasses.alojamiento>() ?: DataClasses.alojamiento()
+        }
+    }
+
 }
