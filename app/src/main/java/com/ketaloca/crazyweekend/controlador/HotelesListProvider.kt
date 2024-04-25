@@ -4,68 +4,68 @@ import com.ketaloca.crazyweekend.modelo.DataClasses
 
 class HotelesListProvider {
     companion object {
-        val lista = listOf<DataClasses.hotel>(
-            DataClasses.hotel(
+        val lista = listOf<DataClasses.alojamiento>(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Anfetas",
                 "El paraíso de los drogatas de rave locas",
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Tripis",
                 "El puerto de conexión cósmica definitivo",
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Ketamina",
                 "Un auténtico paraíso para los drogadictos del mundo"
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Tripis",
                 "El puerto de conexión cósmica definitivo",
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Tripis",
                 "El puerto de conexión cósmica definitivo",
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Tripis",
                 "El puerto de conexión cósmica definitivo",
             ),
-            DataClasses.hotel(
+            DataClasses.alojamiento(
                 "Tripis",
                 "El puerto de conexión cósmica definitivo",
             ),

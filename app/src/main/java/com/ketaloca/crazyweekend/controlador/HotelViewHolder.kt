@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.modelo.DataClasses
 
@@ -13,8 +12,8 @@ class HotelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val nombre = view.findViewById<TextView>(R.id.txtNombre)
     val descripcion = view.findViewById<TextView>(R.id.txtDescripcion)
 
-    fun render(hotelModel:DataClasses.hotel) {
-        nombre.text = hotelModel.nombre
-        descripcion.text = hotelModel.descripcion
+    fun render(alojamientoModel:DataClasses.alojamiento) {
+        nombre.text = alojamientoModel.nombre
+        descripcion.text = alojamientoModel.descripcion
     }
 }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.modelo.DataClasses
 
-class HotelAdapter(private val hotelesList: List<DataClasses.hotel>) :
+class HotelAdapter(private val hotelesList: List<DataClasses.alojamiento>) :
     RecyclerView.Adapter<HotelViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotelViewHolder {
         val layaoutInflater = LayoutInflater.from(parent.context)

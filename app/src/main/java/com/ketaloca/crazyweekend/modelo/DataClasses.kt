@@ -1,6 +1,5 @@
 package com.ketaloca.crazyweekend.modelo
 
-import com.google.type.LatLng
 import java.time.LocalDate
 
 class DataClasses {
@@ -11,19 +10,16 @@ class DataClasses {
     )
 
 
-    data class hotel(
-       // var idhotel: Int? = null,
-       // var emailgerente: String? = null,
-        val nombre: String? = null,
-        val descripcion: String? = null,
-       // var imagen:String?=null
+    data class alojamiento(
+       // var id: Int? = null,
+        var nombre: String? = null,
+        var descripcion: String? = null,
+       // var imagen: String? = null
     )
 
-    data class habitacion(var numero: Int? = null, var idhotel: Int? = null)
-
     data class reserva(
-        var iduser: Int? = null,
-        var habitacion: habitacion? = null,
+        var emailUser: Int? = null,
+        var idalojamiento: alojamiento? = null,
         var fechaInicio: LocalDate? = null,
         var fechaFin: LocalDate? = null
     )
