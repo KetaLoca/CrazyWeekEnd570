@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         val email: String? = auth.currentUser?.email
         val viewemail: TextView = findViewById(R.id.viewemail)
         val viewreservas: TextView = findViewById(R.id.viewreservas)
-        val viewhoteles: TextView = findViewById(R.id.viewhoteles)
 
         if (email != null) {
             viewemail.text = email
@@ -40,9 +39,7 @@ class MainActivity : AppCompatActivity() {
     private fun botones() {
         val btnlogout: Button = findViewById(R.id.btnLogOut)
         val btnbuscar: Button = findViewById(R.id.btnBuscar)
-        val btnofertar: Button = findViewById(R.id.btnofertar)
         val btnMisReservas: Button = findViewById(R.id.btnMisReservas)
-        val btnMisHoteles: Button = findViewById(R.id.btnMisHoteles)
         val btnMiCuenta: Button = findViewById(R.id.btnMiCuenta)
 
         btnlogout.setOnClickListener() {
@@ -56,11 +53,6 @@ class MainActivity : AppCompatActivity() {
 
         btnbuscar.setOnClickListener() {
             val intent = Intent(this, BuscarActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnofertar.setOnClickListener() {
-            val intent = Intent(this, OfertarActivity::class.java)
             startActivity(intent)
         }
     }

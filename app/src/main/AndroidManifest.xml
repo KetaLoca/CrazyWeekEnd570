@@ -16,9 +16,6 @@
             android:name=".BuscarActivity"
             android:exported="false" />
         <activity
-            android:name=".OfertarActivity"
-            android:exported="false" />
-        <activity
             android:name=".AccountActivity"
             android:exported="false" />
         <activity
