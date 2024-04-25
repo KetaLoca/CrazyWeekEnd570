@@ -6,9 +6,15 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.tasks.await
+import java.util.UUID
 
 class FirebaseDriver {
     private val db = Firebase.firestore
+
+    fun generateRandomID(): String {
+        return UUID.randomUUID().toString()
+    }
+
     fun addUser(user: DataClasses.user, context: Context) {
         db.collection("users").document(user.email!!).set(user).addOnSuccessListener {
             val builder = androidx.appcompat.app.AlertDialog.Builder(context)
@@ -39,6 +45,10 @@ class FirebaseDriver {
         val docRef = db.collection("users").document(email!!)
         val document = docRef.get().await()
         return document.toObject<DataClasses.user>()
+    }
+
+    fun addAlojammiento(alojamiento: DataClasses.alojamiento) {
+        db.collection("alojamientos").document(alojamiento.id).set(alojamiento)
     }
 
 }

@@ -10,6 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.ketaloca.crazyweekend.R
+import com.ketaloca.crazyweekend.controlador.FirebaseDriver
+import com.ketaloca.crazyweekend.controlador.HotelesListProvider
+import com.ketaloca.crazyweekend.modelo.DataClasses
+import java.util.UUID
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +60,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, BuscarActivity::class.java)
             startActivity(intent)
         }
+
+        btnMisReservas.setOnClickListener() {
+            añadirAlojamientos()
+        }
     }
 
     private fun LogOut() {
@@ -63,5 +71,16 @@ class MainActivity : AppCompatActivity() {
         val auth = FirebaseAuth.getInstance()
         auth.signOut()
         finish()
+    }
+
+    fun añadirAlojamientos() {
+        val driver = FirebaseDriver()
+        val house: DataClasses.alojamiento =
+            DataClasses.alojamiento(
+                UUID.randomUUID().toString(),
+                "Torre Lago",
+                "Un sitio mágico para relajarse"
+            )
+        driver.addAlojammiento(house)
     }
 }

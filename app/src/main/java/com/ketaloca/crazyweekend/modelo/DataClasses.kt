@@ -11,17 +11,18 @@ class DataClasses {
 
 
     data class alojamiento(
-        //var id: Int? = null,
+        val id:String,
         var nombre: String? = null,
         var descripcion: String? = null,
-       // var imagen: String? = null
+        // var imagen: String? = null
     )
 
     data class reserva(
-        var emailUser: Int? = null,
-        var idalojamiento: alojamiento? = null,
-        var fechaInicio: LocalDate? = null,
-        var fechaFin: LocalDate? = null
+        var emailUser: String,
+        var idalojamiento: String,
+        var fechaInicio: LocalDate,
+        var fechaFin: LocalDate
     )
+
 
 }
