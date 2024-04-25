@@ -1,12 +1,16 @@
 package com.ketaloca.crazyweekend.controlador
 
 import android.view.LayoutInflater
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.modelo.DataClasses
 
-class HotelAdapter(private val hotelesList: List<DataClasses.alojamiento>) :
+class HotelAdapter(
+    private val hotelesList: List<DataClasses.alojamiento>,
+    private val onClickListener: (DataClasses.alojamiento) -> Unit
+) :
     RecyclerView.Adapter<HotelViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotelViewHolder {
         val layaoutInflater = LayoutInflater.from(parent.context)
@@ -15,7 +19,7 @@ class HotelAdapter(private val hotelesList: List<DataClasses.alojamiento>) :
 
     override fun onBindViewHolder(holder: HotelViewHolder, position: Int) {
         val item = hotelesList[position]
-        holder.render(item)
+        holder.render(item, onClickListener)
     }
 
 

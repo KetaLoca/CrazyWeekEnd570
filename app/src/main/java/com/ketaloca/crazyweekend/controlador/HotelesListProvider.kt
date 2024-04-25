@@ -7,68 +7,56 @@ class HotelesListProvider {
         val lista = listOf<DataClasses.alojamiento>(
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
-            ),
-            DataClasses.alojamiento(
-                "Anfetas",
-                "El paraíso de los drogatas de rave locas",
-            ),
-            DataClasses.alojamiento(
-                "Tripis",
-                "El puerto de conexión cósmica definitivo",
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
                 "Ketamina",
-                "Un auténtico paraíso para los drogadictos del mundo"
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
-                "Tripis",
-                "El puerto de conexión cósmica definitivo",
+                "Ketamina",
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
-                "Tripis",
-                "El puerto de conexión cósmica definitivo",
+                "Ketamina",
+                "Un auténtico paraíso"
             ),
             DataClasses.alojamiento(
-                "Tripis",
-                "El puerto de conexión cósmica definitivo",
-            ),
-            DataClasses.alojamiento(
-                "Tripis",
-                "El puerto de conexión cósmica definitivo",
-            ),
+                "Ketamina",
+                "Un auténtico paraíso"
+            )
         )
     }
 }

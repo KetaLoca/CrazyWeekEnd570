@@ -11,7 +11,7 @@ class DataClasses {
 
 
     data class alojamiento(
-       // var id: Int? = null,
+        //var id: Int? = null,
         var nombre: String? = null,
         var descripcion: String? = null,
        // var imagen: String? = null
