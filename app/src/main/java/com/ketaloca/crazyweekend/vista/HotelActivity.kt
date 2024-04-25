@@ -1,6 +1,7 @@
 package com.ketaloca.crazyweekend.vista
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,5 +18,17 @@ class HotelActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        inicio()
+    }
+
+    private fun inicio() {
+        botones()
+        val idAlojamiento = intent.getStringExtra("idAlojamiento")
+        val txtID: TextView = findViewById(R.id.txtHotelActivity)
+        txtID.text = idAlojamiento
+    }
+
+    private fun botones() {
+
     }
 }

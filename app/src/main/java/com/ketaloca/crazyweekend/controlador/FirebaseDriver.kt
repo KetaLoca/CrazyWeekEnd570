@@ -48,7 +48,7 @@ class FirebaseDriver {
     }
 
     fun addAlojammiento(alojamiento: DataClasses.alojamiento) {
-        db.collection("alojamientos").document(alojamiento.id).set(alojamiento)
+        db.collection("alojamientos").document(alojamiento.id!!).set(alojamiento)
     }
 
 }

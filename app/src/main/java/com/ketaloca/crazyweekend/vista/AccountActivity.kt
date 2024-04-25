@@ -77,9 +77,6 @@ class AccountActivity : AppCompatActivity() {
             txtnombre.text.toString(),
             txtapellidos.text.toString()
         )
-        user.email = txtemail.text.toString()
-        user.nombre = txtnombre.text.toString()
-        user.apellidos = txtapellidos.text.toString()
         return user
     }
 

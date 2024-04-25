@@ -11,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
-import com.ketaloca.crazyweekend.controlador.HotelesListProvider
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import java.util.UUID
 

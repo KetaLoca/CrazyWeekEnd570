@@ -7,4 +7,41 @@
     android:layout_height="match_parent"
     tools:context=".vista.HotelActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#009688"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/LogoAppHotelView"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="#009688"
+            app:srcCompat="@drawable/logoapp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <ImageView
+            android:id="@+id/imgHotelView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:translationX="55dp"
+            app:srcCompat="@drawable/imgprueba" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/txtHotelActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:translationX="170dp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

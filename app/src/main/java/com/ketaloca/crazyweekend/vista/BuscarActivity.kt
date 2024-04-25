@@ -45,6 +45,7 @@ class BuscarActivity : AppCompatActivity() {
 
     private fun onItemSelected(alojamiento: DataClasses.alojamiento) {
         val intent = Intent(this, HotelActivity::class.java)
+        intent.putExtra("idAlojamiento", alojamiento.id)
         startActivity(intent)
     }
 

@@ -12,19 +12,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imgLogoApp"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="#009688"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imgLogoApp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/logoapp" />
-        </LinearLayout>
+            app:srcCompat="@drawable/logoapp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewBuscar"
