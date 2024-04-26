@@ -2,6 +2,9 @@ package com.ketaloca.crazyweekend.vista
 
 import android.media.Image
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +16,7 @@ import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import kotlinx.coroutines.runBlocking
 
 class HotelActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,7 +28,6 @@ class HotelActivity : AppCompatActivity() {
         }
         inicio()
         botones()
-
     }
 
     private fun inicio() {
@@ -38,9 +41,36 @@ class HotelActivity : AppCompatActivity() {
 
     private fun botones() {
         val btnLogo: ImageView = findViewById(R.id.LogoAppHotelView)
+        val etDAte: EditText = findViewById(R.id.etDate)
+        val etDateFin: EditText = findViewById(R.id.etDateFin)
 
         btnLogo.setOnClickListener {
             finish()
         }
+        etDAte.setOnClickListener { showDatePickerDialogInicio() }
+        etDateFin.setOnClickListener { showDatePickerDialogFin() }
     }
+
+    private fun showDatePickerDialogInicio() {
+        val datePicker =
+            DatePickerFragment { day, month, year -> onDateSlectedInicio(day, month, year) }
+        datePicker.show(supportFragmentManager, "DatePicker")
+    }
+
+    private fun showDatePickerDialogFin() {
+        val datePicker =
+            DatePickerFragment { day, month, year -> onDateSlectedFin(day, month, year) }
+        datePicker.show(supportFragmentManager, "DatePicker")
+    }
+
+    fun onDateSlectedInicio(day: Int, month: Int, year: Int) {
+        val etDate: EditText = findViewById(R.id.etDate)
+        etDate.setText("Día inicio reserva -> $day/$month/$year")
+    }
+
+    fun onDateSlectedFin(day: Int, month: Int, year: Int) {
+        val etDateFin: EditText = findViewById(R.id.etDateFin)
+        etDateFin.setText("Día final reserva -> $day/$month/$year")
+    }
+
 }
