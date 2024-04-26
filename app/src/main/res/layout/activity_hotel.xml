@@ -38,10 +38,15 @@
             android:layout_height="20dp" />
 
         <TextView
-            android:id="@+id/txtHotelActivity"
+            android:id="@+id/txtNombreHotelActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:translationX="170dp" />
+            android:fontFamily="sans-serif-black"
+            android:text="Datos no encontrados"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

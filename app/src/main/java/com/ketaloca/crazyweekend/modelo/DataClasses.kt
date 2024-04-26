@@ -14,13 +14,13 @@ class DataClasses {
 
 
     data class alojamiento(
-        val id: String = UUID.randomUUID().toString(),
+        val id: String? = null,
         var nombre: String? = null,
         var descripcion: String? = null,
     )
 
     data class reserva(
-        val id: String = UUID.randomUUID().toString(),
+        val id: String? = null,
         val emailuser: String? = null,
         val idalojamiento: String? = null,
         var fechaInicio: LocalDate? = null,

@@ -1,12 +1,16 @@
 package com.ketaloca.crazyweekend.vista
 
+import android.media.Image
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ketaloca.crazyweekend.R
+import com.ketaloca.crazyweekend.controlador.FirebaseDriver
+import kotlinx.coroutines.runBlocking
 
 class HotelActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,16 +23,24 @@ class HotelActivity : AppCompatActivity() {
             insets
         }
         inicio()
+        botones()
+
     }
 
     private fun inicio() {
-        botones()
+        val txtNombre: TextView = findViewById(R.id.txtNombreHotelActivity)
+        val driver = FirebaseDriver()
         val idAlojamiento = intent.getStringExtra("idAlojamiento")
-        val txtID: TextView = findViewById(R.id.txtHotelActivity)
-        txtID.text = idAlojamiento
+        val alojamiento = runBlocking { driver.getAlojamiento(idAlojamiento!!) }
+
+        txtNombre.text = alojamiento!!.nombre
     }
 
     private fun botones() {
+        val btnLogo: ImageView = findViewById(R.id.LogoAppHotelView)
 
+        btnLogo.setOnClickListener {
+            finish()
+        }
     }
 }

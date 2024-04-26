@@ -11,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.ketaloca.crazyweekend.R
+import com.ketaloca.crazyweekend.controlador.FirebaseDriver
+import com.ketaloca.crazyweekend.modelo.DataClasses
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,15 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.R.*
+import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.controlador.HotelAdapter
-import com.ketaloca.crazyweekend.controlador.HotelesListProvider
-import com.ketaloca.crazyweekend.databinding.ActivityBuscarBinding
 import com.ketaloca.crazyweekend.modelo.DataClasses
+import kotlinx.coroutines.runBlocking
 
 class BuscarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +37,14 @@ class BuscarActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(id.recyclerViewBuscar)
+        val driver = FirebaseDriver()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter =
-            HotelAdapter(HotelesListProvider.lista) { alojamiento -> onItemSelected(alojamiento) }
+            HotelAdapter(runBlocking { driver.getAlojamientosList() }) { alojamiento ->
+                onItemSelected(
+                    alojamiento
+                )
+            }
     }
 
     private fun onItemSelected(alojamiento: DataClasses.alojamiento) {
