@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.R.*
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
-import com.ketaloca.crazyweekend.controlador.HotelAdapter
+import com.ketaloca.crazyweekend.controlador.AlojamientoAdapter
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
 
-class BuscarActivity : AppCompatActivity() {
+class AlojamientosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(layout.activity_buscar)
+        setContentView(layout.activity_alojamientos)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -40,7 +40,7 @@ class BuscarActivity : AppCompatActivity() {
         val driver = FirebaseDriver()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter =
-            HotelAdapter(runBlocking { driver.getAlojamientosList() }) { alojamiento ->
+            AlojamientoAdapter(runBlocking { driver.getAlojamientosList() }) { alojamiento ->
                 onItemSelected(
                     alojamiento
                 )
@@ -48,7 +48,7 @@ class BuscarActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(alojamiento: DataClasses.alojamiento) {
-        val intent = Intent(this, HotelActivity::class.java)
+        val intent = Intent(this, AlojamientoActivity::class.java)
         intent.putExtra("idAlojamiento", alojamiento.id)
         startActivity(intent)
     }

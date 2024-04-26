@@ -23,8 +23,8 @@ class DataClasses {
         val id: String? = null,
         val emailuser: String? = null,
         val idalojamiento: String? = null,
-        var fechaInicio: LocalDate? = null,
-        var fechaFin: LocalDate? = null
+        var fechaInicio: String? = null,
+        var fechaFin: String? = null
     )
 
 

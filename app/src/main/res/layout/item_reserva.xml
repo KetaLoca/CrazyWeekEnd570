@@ -13,9 +13,10 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imgHotel"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:id="@+id/imgReserva"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/imgprueba"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,14 +24,14 @@
 
 
         <TextView
-            android:id="@+id/txtNombre"
+            android:id="@+id/txtNombreReserva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="21sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/imgHotel"
+            app:layout_constraintStart_toEndOf="@+id/imgReserva"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Anfetas" />
 
@@ -41,8 +42,18 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@+id/imgHotel"
-            app:layout_constraintTop_toBottomOf="@+id/txtNombre"
+            app:layout_constraintStart_toEndOf="@+id/imgReserva"
+            app:layout_constraintTop_toBottomOf="@+id/txtNombreReserva"
+            tools:text="Locas" />
+
+        <TextView
+            android:id="@+id/txtFechaReserva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgReserva"
             tools:text="Locas" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

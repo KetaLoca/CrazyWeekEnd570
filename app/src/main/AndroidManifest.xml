@@ -15,10 +15,16 @@
         android:theme="@style/Theme.CrazyWeekEnd"
         tools:targetApi="31">
         <activity
-            android:name=".vista.HotelActivity"
+            android:name=".vista.ReservasActivity"
             android:exported="false" />
         <activity
-            android:name=".vista.BuscarActivity"
+            android:name=".vista.ReservaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".vista.AlojamientoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".vista.AlojamientosActivity"
             android:exported="false" />
         <activity
             android:name=".vista.AccountActivity"

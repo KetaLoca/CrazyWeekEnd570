@@ -56,12 +56,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnbuscar.setOnClickListener() {
-            val intent = Intent(this, BuscarActivity::class.java)
+            val intent = Intent(this, AlojamientosActivity::class.java)
             startActivity(intent)
         }
 
         btnMisReservas.setOnClickListener() {
-            añadirAlojamientos()
+            val intent = Intent(this, ReservasActivity::class.java)
+            startActivity(intent)
         }
     }
 

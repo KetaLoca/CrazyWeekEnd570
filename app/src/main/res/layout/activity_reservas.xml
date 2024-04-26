@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.BuscarActivity">
+    tools:context=".vista.ReservasActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,16 +14,17 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imgLogoApp"
+            android:id="@+id/imgLogoAppReservas"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="#009688"
             app:srcCompat="@drawable/logoapp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewBuscar"
+            android:id="@+id/recyclerViewReservas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </FrameLayout>

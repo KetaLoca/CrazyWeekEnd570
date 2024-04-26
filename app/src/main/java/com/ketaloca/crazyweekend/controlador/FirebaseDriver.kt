@@ -73,6 +73,10 @@ class FirebaseDriver {
         db.collection("reservas").document(reserva.id!!).set(reserva)
     }
 
+    fun deleteReserva(idReserva: String) {
+        db.collection("reservas").document(idReserva).delete()
+    }
+
     suspend fun getReserva(idReserva: String): DataClasses.reserva? {
         val docRef = db.collection("reservas").document(idReserva)
         val document = docRef.get().await()
@@ -80,8 +84,8 @@ class FirebaseDriver {
         return document.toObject<DataClasses.reserva>()
     }
 
-    suspend fun getReservasByEmail(email: String): List<DataClasses.reserva> {
-        val collection = db.collection("reservas").whereEqualTo("emailuser", email)
+    suspend fun getReservasByEmail(): List<DataClasses.reserva> {
+        val collection = db.collection("reservas")
         val snapshot = collection.get().await()
 
         return snapshot.documents.map { document ->
