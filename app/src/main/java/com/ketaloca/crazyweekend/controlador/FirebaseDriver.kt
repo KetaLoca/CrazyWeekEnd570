@@ -44,6 +44,7 @@ class FirebaseDriver {
     suspend fun getUser(email: String?): DataClasses.user? {
         val docRef = db.collection("users").document(email!!)
         val document = docRef.get().await()
+
         return document.toObject<DataClasses.user>()
     }
 
@@ -54,6 +55,7 @@ class FirebaseDriver {
     suspend fun getAlojamiento(idAlojamiento: String): DataClasses.alojamiento? {
         val docRef = db.collection("alojamientos").document(idAlojamiento)
         val document = docRef.get().await()
+
         return document.toObject<DataClasses.alojamiento>()
     }
 
@@ -65,6 +67,27 @@ class FirebaseDriver {
         return snapshot.documents.map { document ->
             document.toObject<DataClasses.alojamiento>() ?: DataClasses.alojamiento()
         }
+    }
+
+    fun addReserva(reserva: DataClasses.reserva) {
+        db.collection("reservas").document(reserva.id!!).set(reserva)
+    }
+
+    suspend fun getReserva(idReserva: String): DataClasses.reserva? {
+        val docRef = db.collection("reservas").document(idReserva)
+        val document = docRef.get().await()
+
+        return document.toObject<DataClasses.reserva>()
+    }
+
+    suspend fun getReservasByEmail(email: String): List<DataClasses.reserva> {
+        val collection = db.collection("reservas").whereEqualTo("emailuser", email)
+        val snapshot = collection.get().await()
+
+        return snapshot.documents.map { document ->
+            document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
+        }
+
     }
 
 }

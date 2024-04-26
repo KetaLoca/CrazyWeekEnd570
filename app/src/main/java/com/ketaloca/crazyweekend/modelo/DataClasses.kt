@@ -3,6 +3,7 @@ package com.ketaloca.crazyweekend.modelo
 import android.os.Parcel
 import android.os.Parcelable
 import java.time.LocalDate
+import java.util.UUID
 
 class DataClasses {
     data class user(
@@ -13,16 +14,17 @@ class DataClasses {
 
 
     data class alojamiento(
-        val id: String? = null,
+        val id: String = UUID.randomUUID().toString(),
         var nombre: String? = null,
         var descripcion: String? = null,
     )
 
     data class reserva(
-        val emailUser: String,
-        val idalojamiento: String,
-        var fechaInicio: LocalDate,
-        var fechaFin: LocalDate
+        val id: String = UUID.randomUUID().toString(),
+        val emailuser: String? = null,
+        val idalojamiento: String? = null,
+        var fechaInicio: LocalDate? = null,
+        var fechaFin: LocalDate? = null
     )
 
 
