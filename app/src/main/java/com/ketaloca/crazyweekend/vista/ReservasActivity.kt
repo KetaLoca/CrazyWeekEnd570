@@ -32,8 +32,6 @@ class ReservasActivity : AppCompatActivity() {
         }
         inicio()
     }
-
-
     private fun inicio() {
         initRecyclerView()
         val btnLogo: ImageView = findViewById(R.id.imgLogoAppReservas)

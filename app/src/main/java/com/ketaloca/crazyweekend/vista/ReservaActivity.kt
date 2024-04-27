@@ -76,7 +76,7 @@ class ReservaActivity : AppCompatActivity() {
 
         val builder = AlertDialog.Builder(this).setTitle("Reserva eliminada")
             .setMessage("Reserva eliminada correctamente")
-            .setPositiveButton("Entendido") { dialog, _ -> finish() }.create()
+            .setPositiveButton("Entendido") { dialog, _ -> parent.recreate() }.create()
             .show()
     }
 
