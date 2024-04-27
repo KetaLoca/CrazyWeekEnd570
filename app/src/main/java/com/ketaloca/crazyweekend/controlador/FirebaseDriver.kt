@@ -1,6 +1,7 @@
 package com.ketaloca.crazyweekend.controlador
 
 import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
@@ -84,14 +85,23 @@ class FirebaseDriver {
         return document.toObject<DataClasses.reserva>()
     }
 
-    suspend fun getReservasByEmail(): List<DataClasses.reserva> {
-        val collection = db.collection("reservas")
+    suspend fun getReservasByEmail(email: String): List<DataClasses.reserva> {
+        val collection = db.collection("reservas").whereEqualTo("emailuser", email)
         val snapshot = collection.get().await()
 
         return snapshot.documents.map { document ->
             document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
         }
 
+    }
+
+    suspend fun getReservasList(): List<DataClasses.reserva> {
+        val collection = db.collection("reservas")
+        val snapshot = collection.get().await()
+
+        return snapshot.documents.map { document ->
+            document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
+        }
     }
 
 }

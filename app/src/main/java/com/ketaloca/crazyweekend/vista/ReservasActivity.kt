@@ -33,10 +33,13 @@ class ReservasActivity : AppCompatActivity() {
         inicio()
     }
 
+
     private fun inicio() {
         initRecyclerView()
         val btnLogo: ImageView = findViewById(R.id.imgLogoAppReservas)
-        btnLogo.setOnClickListener { finish() }
+        btnLogo.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initRecyclerView() {
@@ -47,7 +50,7 @@ class ReservasActivity : AppCompatActivity() {
         val list = getList()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter =
-            ReservaAdapter(runBlocking { driver.getReservasByEmail() }) { reserva ->
+            ReservaAdapter(runBlocking { driver.getReservasByEmail(email!!) }) { reserva ->
                 onItemSelected(reserva)
             }
     }

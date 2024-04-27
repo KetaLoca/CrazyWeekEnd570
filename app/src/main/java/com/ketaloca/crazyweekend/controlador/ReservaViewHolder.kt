@@ -19,7 +19,7 @@ class ReservaViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val alojamiento = runBlocking { driver.getAlojamiento(reservaModel.idalojamiento!!) }
         nombre.text = alojamiento!!.nombre
         descripcion.text = alojamiento.descripcion
-        fechaReserva.text =  "Reservado desde el${reservaModel.fechaInicio} hasta el ${reservaModel.fechaFin}"
+        fechaReserva.text =  "Reserva -> ${reservaModel.fechaInicio}"
         itemView.setOnClickListener { onClickListener(reservaModel) }
     }
 }

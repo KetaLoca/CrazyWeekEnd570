@@ -23,8 +23,11 @@ import java.util.UUID
 
 class AlojamientoActivity : AppCompatActivity() {
 
-    private lateinit var fechaInicio: LocalDate
-    private lateinit var fechaFinal: LocalDate
+    private lateinit var fechaInicio: String
+    private lateinit var fechaFinal: String
+    private var comprobarInicio: Boolean = false
+    private var comprobarFinal: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +44,9 @@ class AlojamientoActivity : AppCompatActivity() {
 
     private fun inicio() {
         val txtNombre: TextView = findViewById(R.id.txtNombreHotelActivity)
-        val driver = FirebaseDriver()
-        val idAlojamiento = intent.getStringExtra("idAlojamiento")
-        val alojamiento = runBlocking { driver.getAlojamiento(idAlojamiento!!) }
+        val alojamiento = getAlojamiento()
 
-        txtNombre.text = alojamiento!!.nombre
+        txtNombre.text = alojamiento.nombre
     }
 
     private fun botones() {
@@ -58,11 +59,18 @@ class AlojamientoActivity : AppCompatActivity() {
             finish()
         }
 
-        etDAte.setOnClickListener { showDatePickerDialogInicio() }
+        etDAte.setOnClickListener {
+            showDatePickerDialogInicio()
+            comprobarInicio = true
+        }
+        etDateFin.setOnClickListener {
+            showDatePickerDialogFin()
+            comprobarFinal = true
+        }
 
-        etDateFin.setOnClickListener { showDatePickerDialogFin() }
-
-        btnReservar.setOnClickListener { añadirReserva() }
+        btnReservar.setOnClickListener {
+            añadirReserva()
+        }
     }
 
     private fun showDatePickerDialogInicio() {
@@ -79,15 +87,17 @@ class AlojamientoActivity : AppCompatActivity() {
 
     fun onDateSelectedInicio(day: Int, month: Int, year: Int) {
         val etDate: EditText = findViewById(R.id.etDate)
-        fechaInicio = LocalDate.of(year, month + 1, day)
+        val mes = month + 1
+        fechaInicio = "$day/$mes/$year"
+
 
         etDate.setText("Día inicio reserva -> $fechaInicio")
-
     }
 
     fun onDateSelectedFin(day: Int, month: Int, year: Int) {
         val etDateFin: EditText = findViewById(R.id.etDateFin)
-        fechaFinal = LocalDate.of(year, month + 1, day)
+        val mes = month + 1
+        fechaFinal = "$day/$mes/$year"
 
         etDateFin.setText("Día final reserva -> $fechaFinal")
     }
@@ -99,19 +109,35 @@ class AlojamientoActivity : AppCompatActivity() {
         val emailUsuario = auth.currentUser!!.email
         val idAlojamiento = intent.getStringExtra("idAlojamiento")
 
-        val reserva = DataClasses.reserva(
-            id,
-            emailUsuario,
-            idAlojamiento,
-            fechaInicio.toString(),
-            fechaFinal.toString()
-        )
 
-        driver.addReserva(reserva)
+        if (comprobarInicio && comprobarFinal) {
 
-        val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
-            .setMessage("Reserva para el día $fechaInicio realizada correctamente")
-            .setPositiveButton("Entendido") { dialog, _ -> }.create().show()
+            val reserva = DataClasses.reserva(
+                id,
+                emailUsuario,
+                idAlojamiento,
+                fechaInicio,
+                fechaFinal
+            )
+
+            driver.addReserva(reserva)
+
+            val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
+                .setMessage("Alojamiento reservado correctamente")
+                .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
+        } else {
+            val builder = AlertDialog.Builder(this).setTitle("Campos incompletos")
+                .setMessage("Porfavor rellene las fechas de entrada y salida")
+                .setPositiveButton("Entendido") { dialog, _ -> }.create().show()
+        }
+
+    }
+
+    private fun getAlojamiento(): DataClasses.alojamiento {
+        val driver = FirebaseDriver()
+        val idAlojamiento = intent.getStringExtra("idAlojamiento")
+        val alojamiento = runBlocking { driver.getAlojamiento(idAlojamiento!!) }
+        return alojamiento!!
     }
 
 

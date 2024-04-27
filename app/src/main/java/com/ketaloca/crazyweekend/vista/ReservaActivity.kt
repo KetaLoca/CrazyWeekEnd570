@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -24,7 +25,7 @@ class ReservaActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //inicio()
+        inicio()
     }
 
     private fun inicio() {
@@ -36,8 +37,8 @@ class ReservaActivity : AppCompatActivity() {
         val alojamiento = getAlojamiento(reserva.idalojamiento!!)
 
         txtNombreAlojamiento.text = alojamiento.nombre
-        txtFechaInicio.setText(reserva.fechaInicio.toString())
-        txtFechaFinal.setText(reserva.fechaFin.toString())
+        txtFechaInicio.setText(reserva.fechaInicio)
+        txtFechaFinal.setText(reserva.fechaFin)
 
         botones()
     }
@@ -45,15 +46,11 @@ class ReservaActivity : AppCompatActivity() {
     private fun botones() {
         val btnLogo: ImageView = findViewById(R.id.LogoAppReservaView)
         val btnEliminarReserva: Button = findViewById(R.id.btnEliminarReserva)
-        val idReserva = intent.getStringExtra("idreserva")
+
 
         btnLogo.setOnClickListener { finish() }
 
-        btnEliminarReserva.setOnClickListener {
-            val driver = FirebaseDriver()
-            driver.deleteReserva(idReserva!!)
-            finish()
-        }
+        btnEliminarReserva.setOnClickListener { eliminarReserva() }
     }
 
     private fun getReserva(): DataClasses.reserva {
@@ -69,8 +66,18 @@ class ReservaActivity : AppCompatActivity() {
         val alojamiento = runBlocking { driver.getAlojamiento(id) }
 
         return alojamiento!!
+    }
 
+    private fun eliminarReserva() {
+        val driver = FirebaseDriver()
+        val idReserva = intent.getStringExtra("idreserva")
 
+        driver.deleteReserva(idReserva!!)
+
+        val builder = AlertDialog.Builder(this).setTitle("Reserva eliminada")
+            .setMessage("Reserva eliminada correctamente")
+            .setPositiveButton("Entendido") { dialog, _ -> finish() }.create()
+            .show()
     }
 
 }
