@@ -1,14 +1,11 @@
 package com.ketaloca.crazyweekend.vista
 
-import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,14 +16,15 @@ import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
+import java.util.Date
 import java.util.UUID
 
 class AlojamientoActivity : AppCompatActivity() {
 
     private lateinit var fechaInicio: String
     private lateinit var fechaFinal: String
-    private var comprobarInicio: Boolean = false
-    private var comprobarFinal: Boolean = false
+    var comprobarInicio: Boolean = false
+    var comprobarFinal: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,18 +86,19 @@ class AlojamientoActivity : AppCompatActivity() {
     fun onDateSelectedInicio(day: Int, month: Int, year: Int) {
         val etDate: EditText = findViewById(R.id.etDate)
         val mes = month + 1
+        val date = LocalDate.of(year, month, day)
         fechaInicio = "$day/$mes/$year"
 
-
-        etDate.setText("Día inicio reserva -> $fechaInicio")
+        etDate.setText("Día inicio reserva -> $date")
     }
 
     fun onDateSelectedFin(day: Int, month: Int, year: Int) {
         val etDateFin: EditText = findViewById(R.id.etDateFin)
         val mes = month + 1
+        val date = LocalDate.of(year, month, day)
         fechaFinal = "$day/$mes/$year"
 
-        etDateFin.setText("Día final reserva -> $fechaFinal")
+        etDateFin.setText("Día final reserva -> $date")
     }
 
     private fun añadirReserva() {

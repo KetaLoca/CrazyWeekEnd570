@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
         val house: DataClasses.alojamiento =
             DataClasses.alojamiento(
                 UUID.randomUUID().toString(),
-                "Torre Lago",
-                "Un sitio mágico para relajarse"
+                "Moncloa",
+                "La morada de Pedro Sánchez"
             )
         driver.addAlojammiento(house)
     }
