@@ -96,9 +96,9 @@ class AlojamientoActivity : AppCompatActivity() {
         val etDateFin: EditText = findViewById(R.id.etDateFin)
         val mes = month + 1
         val date = LocalDate.of(year, month, day)
-        fechaFinal = "$day/$mes/$year"
-
-        etDateFin.setText("Día final reserva -> $date")
+        fechaFinal = date.toString()
+        val fechaprueba = LocalDate.parse(fechaFinal)
+        etDateFin.setText("Día final reserva -> ${fechaprueba}")
     }
 
     private fun añadirReserva() {

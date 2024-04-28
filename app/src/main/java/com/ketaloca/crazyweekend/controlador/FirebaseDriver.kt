@@ -2,11 +2,13 @@ package com.ketaloca.crazyweekend.controlador
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import androidx.core.util.toRange
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDate
 import java.util.UUID
 
 class FirebaseDriver {
@@ -102,6 +104,26 @@ class FirebaseDriver {
         return snapshot.documents.map { document ->
             document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
         }
+    }
+
+    suspend fun getDiasReservados(): List<LocalDate> {
+        val listDays = mutableListOf<LocalDate>()
+        val collection = db.collection("reservas")
+        val snapshot = collection.get().await()
+        val listReservas = snapshot.documents.map { document ->
+            document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
+        }
+
+        for (reserva in listReservas) {
+            val fechaInicio = LocalDate.parse(reserva.fechaInicio)
+            val fechaFinal = LocalDate.parse(reserva.fechaFin)
+            val rango = fechaInicio.datesUntil(fechaFinal).toList()
+
+            for (day in rango) {
+                listDays.add(day)
+            }
+        }
+        return listDays
     }
 
 }
