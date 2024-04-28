@@ -15,16 +15,18 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.util.Calendar
 import java.util.Date
 import java.util.UUID
 
 class AlojamientoActivity : AppCompatActivity() {
 
-    private lateinit var fechaInicio: String
-    private lateinit var fechaFinal: String
-    var comprobarInicio: Boolean = false
-    var comprobarFinal: Boolean = false
+    private lateinit var fechaInicio: LocalDate
+    private lateinit var fechaFinal: LocalDate
+    private var comprobarInicio: Boolean = false
+    private var comprobarFinal: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,11 +61,9 @@ class AlojamientoActivity : AppCompatActivity() {
 
         etDAte.setOnClickListener {
             showDatePickerDialogInicio()
-            comprobarInicio = true
         }
         etDateFin.setOnClickListener {
             showDatePickerDialogFin()
-            comprobarFinal = true
         }
 
         btnReservar.setOnClickListener {
@@ -72,33 +72,69 @@ class AlojamientoActivity : AppCompatActivity() {
     }
 
     private fun showDatePickerDialogInicio() {
-        val datePicker =
-            DatePickerFragment { day, month, year -> onDateSelectedInicio(day, month, year) }
-        datePicker.show(supportFragmentManager, "DatePicker")
+        if (comprobarFinal) {
+            val datePicker =
+                DatePickerFragment(
+                    { day, month, year -> onDateSelectedInicio(day, month, year) },
+                    true,
+                    true,
+                    fechaFinal
+                )
+            datePicker.show(supportFragmentManager, "DatePicker")
+        } else {
+            val datePicker =
+                DatePickerFragment(
+                    { day, month, year -> onDateSelectedInicio(day, month, year) },
+                    true,
+                    false,
+                    null
+                )
+            datePicker.show(supportFragmentManager, "DatePicker")
+        }
     }
 
     private fun showDatePickerDialogFin() {
-        val datePicker =
-            DatePickerFragment { day, month, year -> onDateSelectedFin(day, month, year) }
-        datePicker.show(supportFragmentManager, "DatePicker")
+        if (comprobarInicio) {
+            val datePicker =
+                DatePickerFragment(
+                    { day, month, year -> onDateSelectedFin(day, month, year) },
+                    false,
+                    true,
+                    fechaInicio
+                )
+            datePicker.show(supportFragmentManager, "DatePicker")
+        } else {
+            val datePicker =
+                DatePickerFragment(
+                    { day, month, year -> onDateSelectedFin(day, month, year) },
+                    false,
+                    false,
+                    null
+                )
+            datePicker.show(supportFragmentManager, "DatePicker")
+        }
     }
 
     fun onDateSelectedInicio(day: Int, month: Int, year: Int) {
         val etDate: EditText = findViewById(R.id.etDate)
         val mes = month + 1
-        val date = LocalDate.of(year, month, day)
-        fechaInicio = "$day/$mes/$year"
+        val date = LocalDate.of(year, mes, day)
+        fechaInicio = date
 
         etDate.setText("Día inicio reserva -> $date")
+        comprobarInicio = true
+
     }
 
     fun onDateSelectedFin(day: Int, month: Int, year: Int) {
         val etDateFin: EditText = findViewById(R.id.etDateFin)
         val mes = month + 1
-        val date = LocalDate.of(year, month, day)
-        fechaFinal = date.toString()
-        val fechaprueba = LocalDate.parse(fechaFinal)
-        etDateFin.setText("Día final reserva -> ${fechaprueba}")
+        val date = LocalDate.of(year, mes, day)
+        fechaFinal = date
+
+        etDateFin.setText("Día final reserva -> $date")
+        comprobarFinal = true
+
     }
 
     private fun añadirReserva() {
@@ -115,8 +151,8 @@ class AlojamientoActivity : AppCompatActivity() {
                 id,
                 emailUsuario,
                 idAlojamiento,
-                fechaInicio,
-                fechaFinal
+                fechaInicio.toString(),
+                fechaFinal.toString()
             )
 
             driver.addReserva(reserva)
