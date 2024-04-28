@@ -1,8 +1,6 @@
 package com.ketaloca.crazyweekend.controlador
 
 import android.content.Context
-import androidx.appcompat.app.AlertDialog
-import androidx.core.util.toRange
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
