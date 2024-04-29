@@ -15,18 +15,16 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.Calendar
-import java.util.Date
+import java.time.Period
 import java.util.UUID
 
 class AlojamientoActivity : AppCompatActivity() {
 
-    private lateinit var fechaInicio: LocalDate
-    private lateinit var fechaFinal: LocalDate
-    private var comprobarInicio: Boolean = false
-    private var comprobarFinal: Boolean = false
+//    private lateinit var fechaInicio: LocalDate
+//    private lateinit var fechaFinal: LocalDate
+//    private var comprobarInicio: Boolean = false
+//    private var comprobarFinal: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,119 +58,140 @@ class AlojamientoActivity : AppCompatActivity() {
         }
 
         etDAte.setOnClickListener {
-            showDatePickerDialogInicio()
+            //showDatePickerDialogInicio()
         }
         etDateFin.setOnClickListener {
-            showDatePickerDialogFin()
+            //showDatePickerDialogFin()
         }
 
         btnReservar.setOnClickListener {
-            añadirReserva()
+            //añadirReserva()
         }
     }
 
-    private fun showDatePickerDialogInicio() {
-        if (comprobarFinal) {
-            val datePicker =
-                DatePickerFragment(
-                    { day, month, year -> onDateSelectedInicio(day, month, year) },
-                    true,
-                    true,
-                    fechaFinal
-                )
-            datePicker.show(supportFragmentManager, "DatePicker")
-        } else {
-            val datePicker =
-                DatePickerFragment(
-                    { day, month, year -> onDateSelectedInicio(day, month, year) },
-                    true,
-                    false,
-                    null
-                )
-            datePicker.show(supportFragmentManager, "DatePicker")
-        }
-    }
-
-    private fun showDatePickerDialogFin() {
-        if (comprobarInicio) {
-            val datePicker =
-                DatePickerFragment(
-                    { day, month, year -> onDateSelectedFin(day, month, year) },
-                    false,
-                    true,
-                    fechaInicio
-                )
-            datePicker.show(supportFragmentManager, "DatePicker")
-        } else {
-            val datePicker =
-                DatePickerFragment(
-                    { day, month, year -> onDateSelectedFin(day, month, year) },
-                    false,
-                    false,
-                    null
-                )
-            datePicker.show(supportFragmentManager, "DatePicker")
-        }
-    }
-
-    fun onDateSelectedInicio(day: Int, month: Int, year: Int) {
-        val etDate: EditText = findViewById(R.id.etDate)
-        val mes = month + 1
-        val date = LocalDate.of(year, mes, day)
-        fechaInicio = date
-
-        etDate.setText("Día inicio reserva -> $date")
-        comprobarInicio = true
-
-    }
-
-    fun onDateSelectedFin(day: Int, month: Int, year: Int) {
-        val etDateFin: EditText = findViewById(R.id.etDateFin)
-        val mes = month + 1
-        val date = LocalDate.of(year, mes, day)
-        fechaFinal = date
-
-        etDateFin.setText("Día final reserva -> $date")
-        comprobarFinal = true
-
-    }
-
-    private fun añadirReserva() {
-        val driver = FirebaseDriver()
-        val id = UUID.randomUUID().toString()
-        val auth = FirebaseAuth.getInstance()
-        val emailUsuario = auth.currentUser!!.email
-        val idAlojamiento = intent.getStringExtra("idAlojamiento")
-
-
-        if (comprobarInicio && comprobarFinal) {
-
-            val reserva = DataClasses.reserva(
-                id,
-                emailUsuario,
-                idAlojamiento,
-                fechaInicio.toString(),
-                fechaFinal.toString()
-            )
-
-            driver.addReserva(reserva)
-
-            val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
-                .setMessage("Alojamiento reservado correctamente")
-                .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
-        } else {
-            val builder = AlertDialog.Builder(this).setTitle("Campos incompletos")
-                .setMessage("Porfavor rellene las fechas de entrada y salida")
-                .setPositiveButton("Entendido") { dialog, _ -> }.create().show()
-        }
-
-    }
+//    private fun showDatePickerDialogInicio() {
+//        if (comprobarFinal) {
+//            val datePicker =
+//                DatePickerFragment(
+//                    { day, month, year -> onDateSelectedInicio(day, month, year) },
+//                    true,
+//                    true,
+//                    fechaFinal
+//                )
+//            datePicker.show(supportFragmentManager, "DatePicker")
+//        } else {
+//            val datePicker =
+//                DatePickerFragment(
+//                    { day, month, year -> onDateSelectedInicio(day, month, year) },
+//                    true,
+//                    false,
+//                    null
+//                )
+//            datePicker.show(supportFragmentManager, "DatePicker")
+//        }
+//    }
+//
+//    private fun showDatePickerDialogFin() {
+//        if (comprobarInicio) {
+//            val datePicker =
+//                DatePickerFragment(
+//                    { day, month, year -> onDateSelectedFin(day, month, year) },
+//                    false,
+//                    true,
+//                    fechaInicio
+//                )
+//            datePicker.show(supportFragmentManager, "DatePicker")
+//        } else {
+//            val datePicker =
+//                DatePickerFragment(
+//                    { day, month, year -> onDateSelectedFin(day, month, year) },
+//                    false,
+//                    false,
+//                    null
+//                )
+//            datePicker.show(supportFragmentManager, "DatePicker")
+//        }
+//    }
+//
+//    fun onDateSelectedInicio(day: Int, month: Int, year: Int) {
+//        val etDate: EditText = findViewById(R.id.etDate)
+//        val mes = month + 1
+//        val date = LocalDate.of(year, mes, day)
+//        fechaInicio = date
+//
+//        etDate.setText("Día inicio reserva -> $date")
+//        comprobarInicio = true
+//
+//    }
+//
+//    fun onDateSelectedFin(day: Int, month: Int, year: Int) {
+//        val etDateFin: EditText = findViewById(R.id.etDateFin)
+//        val mes = month + 1
+//        val date = LocalDate.of(year, mes, day)
+//        fechaFinal = date
+//
+//        etDateFin.setText("Día final reserva -> $date")
+//        comprobarFinal = true
+//
+//    }
+//
+//    private fun añadirReserva() {
+//        val driver = FirebaseDriver()
+//        val id = UUID.randomUUID().toString()
+//        val auth = FirebaseAuth.getInstance()
+//        val emailUsuario = auth.currentUser!!.email
+//        val idAlojamiento = intent.getStringExtra("idAlojamiento")
+//
+//
+//        if (comprobarInicio && comprobarFinal) {
+//
+//            val reserva = DataClasses.reserva(
+//                id,
+//                emailUsuario,
+//                idAlojamiento,
+//                fechaInicio.toString(),
+//                fechaFinal.toString()
+//            )
+//
+//            driver.addReserva(reserva)
+//
+//            val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
+//                .setMessage("Alojamiento reservado correctamente")
+//                .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
+//        } else {
+//            val builder = AlertDialog.Builder(this).setTitle("Campos incompletos")
+//                .setMessage("Porfavor rellene las fechas de entrada y salida")
+//                .setPositiveButton("Entendido") { dialog, _ -> }.create().show()
+//        }
+//
+//    }
 
     private fun getAlojamiento(): DataClasses.alojamiento {
         val driver = FirebaseDriver()
         val idAlojamiento = intent.getStringExtra("idAlojamiento")
         val alojamiento = runBlocking { driver.getAlojamiento(idAlojamiento!!) }
         return alojamiento!!
+    }
+
+    private fun comprobarRango(reserva: DataClasses.reserva): Boolean {
+        val driver = FirebaseDriver()
+        var date1 = LocalDate.parse(reserva.fechaInicio)
+        val date2: LocalDate = LocalDate.parse(reserva.fechaFin)
+        val periodo = Period.between(date1, date2)
+        val mutableList = mutableListOf<LocalDate>()
+
+        while (date1 <= date2) {
+            mutableList.add(date1)
+            date1 = date1.plusDays(1)
+        }
+
+        val listComprobar = mutableList
+        val listTotal = runBlocking { driver.getDiasReservados() }
+        if (listTotal.containsAll(listComprobar)) {
+            return true
+        } else {
+            return false
+        }
     }
 
 
