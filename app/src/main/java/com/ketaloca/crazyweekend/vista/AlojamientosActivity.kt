@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,6 +18,7 @@ import com.ketaloca.crazyweekend.controlador.AlojamientoAdapter
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 class AlojamientosActivity : AppCompatActivity() {
 
@@ -66,9 +68,23 @@ class AlojamientosActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(alojamiento: DataClasses.alojamiento) {
-        val intent = Intent(this, AlojamientoActivity::class.java)
-        intent.putExtra("idAlojamiento", alojamiento.id)
-        startActivity(intent)
+        if (comprobarFinal && comprobarInicio) {
+            val intent = Intent(this, AlojamientoActivity::class.java)
+            intent.putExtra("idAlojamiento", alojamiento.id)
+            intent.putExtra("fechaInicio", fechaInicio.toString())
+            intent.putExtra("fechaFinal", fechaFinal.toString())
+
+            startActivity(intent)
+
+        } else {
+            val builder = AlertDialog.Builder(this)
+                .setTitle("Seleccione las fechas")
+                .setMessage("Debe seleccionar fechas de inicio y fin antes de continuar")
+                .setPositiveButton("Aceptar") { dialog, _ ->
+                }
+                .create()
+                .show()
+        }
     }
 
     private fun showDatePickerDialogInicio() {
@@ -135,5 +151,10 @@ class AlojamientosActivity : AppCompatActivity() {
         etDateFin.setText("Día final reserva -> $date")
         comprobarFinal = true
 
+    }
+
+    private fun getDatesBetween(startDate: LocalDate, endDate: LocalDate): List<LocalDate> {
+        val numOfDaysBetween = ChronoUnit.DAYS.between(startDate, endDate).toInt()
+        return (0..numOfDaysBetween).map { startDate.plusDays(it.toLong()) }
     }
 }

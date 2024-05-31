@@ -75,12 +75,12 @@ class MainActivity : AppCompatActivity() {
 
     fun añadirAlojamientos() {
         val driver = FirebaseDriver()
-        val house: DataClasses.alojamiento =
+        val alojamiento: DataClasses.alojamiento =
             DataClasses.alojamiento(
                 UUID.randomUUID().toString(),
                 "Moncloa",
                 "La morada de Pedro Sánchez"
             )
-        driver.addAlojammiento(house)
+        driver.addAlojammiento(alojamiento)
     }
 }

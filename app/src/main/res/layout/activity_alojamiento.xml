@@ -53,29 +53,16 @@
             android:layout_width="match_parent"
             android:layout_height="62dp" />
 
-        <EditText
-            android:id="@+id/etDate"
+
+        <TextView
+            android:id="@+id/txtSelectedDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:hint="Seleccionar el inicio de la reserva"
+            android:text="Fecha seleccionada"
             android:textAlignment="center"
-            android:textStyle="bold" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <EditText
-            android:id="@+id/etDateFin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:hint="Seleccionar el fin de la reserva"
-            android:textAlignment="center"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
 
         <Space
             android:layout_width="match_parent"

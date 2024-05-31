@@ -6,7 +6,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -20,13 +19,6 @@ import java.time.Period
 import java.util.UUID
 
 class AlojamientoActivity : AppCompatActivity() {
-
-//    private lateinit var fechaInicio: LocalDate
-//    private lateinit var fechaFinal: LocalDate
-//    private var comprobarInicio: Boolean = false
-//    private var comprobarFinal: Boolean = false
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,129 +34,47 @@ class AlojamientoActivity : AppCompatActivity() {
 
     private fun inicio() {
         val txtNombre: TextView = findViewById(R.id.txtNombreHotelActivity)
+        val txtDate: TextView = findViewById(R.id.txtSelectedDate)
+        val fechaInicio: LocalDate = LocalDate.parse(intent.getStringExtra("fechaInicio"))
+        val fechaFin: LocalDate = LocalDate.parse(intent.getStringExtra("fechaFinal"))
         val alojamiento = getAlojamiento()
 
         txtNombre.text = alojamiento.nombre
+        txtDate.text = "$fechaInicio <--> $fechaFin"
     }
 
     private fun botones() {
         val btnLogo: ImageView = findViewById(R.id.LogoAppHotelView)
-        val etDAte: EditText = findViewById(R.id.etDate)
-        val etDateFin: EditText = findViewById(R.id.etDateFin)
         val btnReservar: Button = findViewById(R.id.btnReservar)
 
         btnLogo.setOnClickListener {
             finish()
         }
 
-        etDAte.setOnClickListener {
-            //showDatePickerDialogInicio()
-        }
-        etDateFin.setOnClickListener {
-            //showDatePickerDialogFin()
-        }
-
         btnReservar.setOnClickListener {
-            //añadirReserva()
+            añadirReserva()
         }
     }
 
-//    private fun showDatePickerDialogInicio() {
-//        if (comprobarFinal) {
-//            val datePicker =
-//                DatePickerFragment(
-//                    { day, month, year -> onDateSelectedInicio(day, month, year) },
-//                    true,
-//                    true,
-//                    fechaFinal
-//                )
-//            datePicker.show(supportFragmentManager, "DatePicker")
-//        } else {
-//            val datePicker =
-//                DatePickerFragment(
-//                    { day, month, year -> onDateSelectedInicio(day, month, year) },
-//                    true,
-//                    false,
-//                    null
-//                )
-//            datePicker.show(supportFragmentManager, "DatePicker")
-//        }
-//    }
-//
-//    private fun showDatePickerDialogFin() {
-//        if (comprobarInicio) {
-//            val datePicker =
-//                DatePickerFragment(
-//                    { day, month, year -> onDateSelectedFin(day, month, year) },
-//                    false,
-//                    true,
-//                    fechaInicio
-//                )
-//            datePicker.show(supportFragmentManager, "DatePicker")
-//        } else {
-//            val datePicker =
-//                DatePickerFragment(
-//                    { day, month, year -> onDateSelectedFin(day, month, year) },
-//                    false,
-//                    false,
-//                    null
-//                )
-//            datePicker.show(supportFragmentManager, "DatePicker")
-//        }
-//    }
-//
-//    fun onDateSelectedInicio(day: Int, month: Int, year: Int) {
-//        val etDate: EditText = findViewById(R.id.etDate)
-//        val mes = month + 1
-//        val date = LocalDate.of(year, mes, day)
-//        fechaInicio = date
-//
-//        etDate.setText("Día inicio reserva -> $date")
-//        comprobarInicio = true
-//
-//    }
-//
-//    fun onDateSelectedFin(day: Int, month: Int, year: Int) {
-//        val etDateFin: EditText = findViewById(R.id.etDateFin)
-//        val mes = month + 1
-//        val date = LocalDate.of(year, mes, day)
-//        fechaFinal = date
-//
-//        etDateFin.setText("Día final reserva -> $date")
-//        comprobarFinal = true
-//
-//    }
-//
-//    private fun añadirReserva() {
-//        val driver = FirebaseDriver()
-//        val id = UUID.randomUUID().toString()
-//        val auth = FirebaseAuth.getInstance()
-//        val emailUsuario = auth.currentUser!!.email
-//        val idAlojamiento = intent.getStringExtra("idAlojamiento")
-//
-//
-//        if (comprobarInicio && comprobarFinal) {
-//
-//            val reserva = DataClasses.reserva(
-//                id,
-//                emailUsuario,
-//                idAlojamiento,
-//                fechaInicio.toString(),
-//                fechaFinal.toString()
-//            )
-//
-//            driver.addReserva(reserva)
-//
-//            val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
-//                .setMessage("Alojamiento reservado correctamente")
-//                .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
-//        } else {
-//            val builder = AlertDialog.Builder(this).setTitle("Campos incompletos")
-//                .setMessage("Porfavor rellene las fechas de entrada y salida")
-//                .setPositiveButton("Entendido") { dialog, _ -> }.create().show()
-//        }
-//
-//    }
+    private fun añadirReserva() {
+        val driver = FirebaseDriver()
+        val auth = FirebaseAuth.getInstance()
+
+        val idAlojamiento = intent.getStringExtra("idAlojamiento")
+        val fechaInicio: LocalDate = LocalDate.parse(intent.getStringExtra("fechaInicio"))
+        val fechaFinal: LocalDate = LocalDate.parse(intent.getStringExtra("fechaFinal"))
+        val email = auth.currentUser?.email
+
+        val reserva: DataClasses.reserva = DataClasses.reserva(
+            UUID.randomUUID().toString(),
+            email,
+            idAlojamiento,
+            fechaInicio.toString(),
+            fechaFinal.toString()
+        )
+
+        driver.addReserva(reserva)
+    }
 
     private fun getAlojamiento(): DataClasses.alojamiento {
         val driver = FirebaseDriver()
