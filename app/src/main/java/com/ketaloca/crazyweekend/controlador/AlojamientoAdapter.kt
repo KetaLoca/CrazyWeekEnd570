@@ -25,4 +25,6 @@ class AlojamientoAdapter(
     override fun getItemCount(): Int {
         return hotelesList.size
     }
+
+
 }

@@ -139,7 +139,7 @@ class AlojamientosActivity : AppCompatActivity() {
 
         etDate.setText("Día inicio reserva -> $date")
         comprobarInicio = true
-
+        actualizarLista()
     }
 
     fun onDateSelectedFin(day: Int, month: Int, year: Int) {
@@ -150,11 +150,26 @@ class AlojamientosActivity : AppCompatActivity() {
 
         etDateFin.setText("Día final reserva -> $date")
         comprobarFinal = true
-
+        actualizarLista()
     }
 
-    private fun getDatesBetween(startDate: LocalDate, endDate: LocalDate): List<LocalDate> {
-        val numOfDaysBetween = ChronoUnit.DAYS.between(startDate, endDate).toInt()
-        return (0..numOfDaysBetween).map { startDate.plusDays(it.toLong()) }
+    private fun actualizarLista() {
+        if (comprobarInicio && comprobarFinal) {
+
+            val driver = FirebaseDriver()
+
+            val recyclerView = findViewById<RecyclerView>(id.recyclerViewBuscar)
+            recyclerView.adapter =
+                AlojamientoAdapter(runBlocking {
+                    driver.updateAlojamientos(
+                        fechaInicio,
+                        fechaFinal,
+                    )
+                }) { alojamiento ->
+                    onItemSelected(
+                        alojamiento
+                    )
+                }
+        }
     }
 }

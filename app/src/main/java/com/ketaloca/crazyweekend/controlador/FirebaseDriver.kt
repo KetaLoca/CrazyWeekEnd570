@@ -1,13 +1,16 @@
 package com.ketaloca.crazyweekend.controlador
 
 import android.content.Context
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.ketaloca.crazyweekend.modelo.DataClasses
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
 import java.util.UUID
+import kotlin.streams.toList
 
 class FirebaseDriver {
     private val db = Firebase.firestore
@@ -95,33 +98,43 @@ class FirebaseDriver {
 
     }
 
-    suspend fun getReservasList(): List<DataClasses.reserva> {
-        val collection = db.collection("reservas")
-        val snapshot = collection.get().await()
-
-        return snapshot.documents.map { document ->
-            document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
-        }
-    }
-
-    suspend fun getDiasReservados(): List<LocalDate> {
-        val listDays = mutableListOf<LocalDate>()
+    suspend fun updateAlojamientos(
+        inicio: LocalDate,
+        fin: LocalDate
+    ): List<DataClasses.alojamiento> {
+        val rangoComprobar = inicio.datesUntil(fin.plusDays(1)).toList()
+        val listAlojamientos = getAlojamientosList()
+        val listaFiltrada = mutableListOf<DataClasses.alojamiento>()
         val collection = db.collection("reservas")
         val snapshot = collection.get().await()
         val listReservas = snapshot.documents.map { document ->
             document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
         }
 
-        for (reserva in listReservas) {
-            val fechaInicio = LocalDate.parse(reserva.fechaInicio)
-            val fechaFinal = LocalDate.parse(reserva.fechaFin)
-            val rango = fechaInicio.datesUntil(fechaFinal).toList()
+        for (alojamiento in listAlojamientos) {
+            var isAvailable = true
+            for (reserva in listReservas) {
+                if (ComprobarRangos(inicio, fin, reserva)) {
+                    isAvailable = false
+                }
+            }
 
-            for (day in rango) {
-                listDays.add(day)
+            if (isAvailable) {
+                listaFiltrada.add(alojamiento)
             }
         }
-        return listDays
+        return listaFiltrada
     }
 
+    private fun ComprobarRangos(
+        inicio: LocalDate,
+        fin: LocalDate,
+        reserva: DataClasses.reserva
+    ): Boolean {
+        var comprobar = false
+        if (inicio <= LocalDate.parse(reserva.fechaInicio) && fin >= LocalDate.parse(reserva.fechaFin)) {
+            comprobar = true
+        }
+        return comprobar
+    }
 }

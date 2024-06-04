@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -74,6 +75,9 @@ class AlojamientoActivity : AppCompatActivity() {
         )
 
         driver.addReserva(reserva)
+        val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
+            .setMessage("Reserva creada correctamente")
+            .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
     }
 
     private fun getAlojamiento(): DataClasses.alojamiento {
@@ -82,27 +86,4 @@ class AlojamientoActivity : AppCompatActivity() {
         val alojamiento = runBlocking { driver.getAlojamiento(idAlojamiento!!) }
         return alojamiento!!
     }
-
-    private fun comprobarRango(reserva: DataClasses.reserva): Boolean {
-        val driver = FirebaseDriver()
-        var date1 = LocalDate.parse(reserva.fechaInicio)
-        val date2: LocalDate = LocalDate.parse(reserva.fechaFin)
-        val periodo = Period.between(date1, date2)
-        val mutableList = mutableListOf<LocalDate>()
-
-        while (date1 <= date2) {
-            mutableList.add(date1)
-            date1 = date1.plusDays(1)
-        }
-
-        val listComprobar = mutableList
-        val listTotal = runBlocking { driver.getDiasReservados() }
-        if (listTotal.containsAll(listComprobar)) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-
 }
