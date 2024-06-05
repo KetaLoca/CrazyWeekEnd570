@@ -14,6 +14,7 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 
 class ReservaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,12 +73,19 @@ class ReservaActivity : AppCompatActivity() {
         val driver = FirebaseDriver()
         val idReserva = intent.getStringExtra("idreserva")
 
-        driver.deleteReserva(idReserva!!)
+        try {
+            driver.deleteReserva(idReserva!!)
 
-        val builder = AlertDialog.Builder(this).setTitle("Reserva eliminada")
-            .setMessage("Reserva eliminada correctamente")
-            .setPositiveButton("Entendido") { dialog, _ -> parent.recreate() }.create()
-            .show()
+            val builder = AlertDialog.Builder(this).setTitle("Reserva eliminada")
+                .setMessage("Reserva eliminada correctamente")
+                .setPositiveButton("Entendido") { dialog, _ -> parent.recreate() }.create()
+                .show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            val builder = AlertDialog.Builder(this).setTitle("Error")
+                .setMessage("Ha ocurrido un error al eliminar la reserva")
+                .setNeutralButton("Entendido") { dialog, _ -> }.create().show()
+        }
     }
 
 }

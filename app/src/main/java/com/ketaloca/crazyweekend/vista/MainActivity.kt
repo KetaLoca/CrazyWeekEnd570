@@ -72,15 +72,4 @@ class MainActivity : AppCompatActivity() {
         auth.signOut()
         finish()
     }
-
-    fun añadirAlojamientos() {
-        val driver = FirebaseDriver()
-        val alojamiento: DataClasses.alojamiento =
-            DataClasses.alojamiento(
-                UUID.randomUUID().toString(),
-                "Moncloa",
-                "La morada de Pedro Sánchez"
-            )
-        driver.addAlojammiento(alojamiento)
-    }
 }

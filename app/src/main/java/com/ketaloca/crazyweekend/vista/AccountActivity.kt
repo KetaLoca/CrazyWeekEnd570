@@ -15,6 +15,7 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 
 class AccountActivity : AppCompatActivity() {
 
@@ -52,11 +53,15 @@ class AccountActivity : AppCompatActivity() {
         }
 
         btnguardar.setOnClickListener() {
-            if (comprobarCampos()) {
-                val user = recogerUser()
-                driver.addUser(user, this)
-                limpiarCampos()
-                actualizarCampos()
+            try {
+                if (comprobarCampos()) {
+                    val user = recogerUser()
+                    driver.addUser(user, this)
+                    limpiarCampos()
+                    actualizarCampos()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
 

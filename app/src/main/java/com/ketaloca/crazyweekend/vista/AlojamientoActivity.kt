@@ -15,6 +15,7 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 import java.time.LocalDate
 import java.time.Period
 import java.util.UUID
@@ -58,26 +59,33 @@ class AlojamientoActivity : AppCompatActivity() {
     }
 
     private fun añadirReserva() {
-        val driver = FirebaseDriver()
-        val auth = FirebaseAuth.getInstance()
+        try {
+            val driver = FirebaseDriver()
+            val auth = FirebaseAuth.getInstance()
 
-        val idAlojamiento = intent.getStringExtra("idAlojamiento")
-        val fechaInicio: LocalDate = LocalDate.parse(intent.getStringExtra("fechaInicio"))
-        val fechaFinal: LocalDate = LocalDate.parse(intent.getStringExtra("fechaFinal"))
-        val email = auth.currentUser?.email
+            val idAlojamiento = intent.getStringExtra("idAlojamiento")
+            val fechaInicio: LocalDate = LocalDate.parse(intent.getStringExtra("fechaInicio"))
+            val fechaFinal: LocalDate = LocalDate.parse(intent.getStringExtra("fechaFinal"))
+            val email = auth.currentUser?.email
 
-        val reserva: DataClasses.reserva = DataClasses.reserva(
-            UUID.randomUUID().toString(),
-            email,
-            idAlojamiento,
-            fechaInicio.toString(),
-            fechaFinal.toString()
-        )
+            val reserva: DataClasses.reserva = DataClasses.reserva(
+                UUID.randomUUID().toString(),
+                email,
+                idAlojamiento,
+                fechaInicio.toString(),
+                fechaFinal.toString()
+            )
 
-        driver.addReserva(reserva)
-        val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
-            .setMessage("Reserva creada correctamente")
-            .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
+            driver.addReserva(reserva)
+            val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
+                .setMessage("Reserva creada correctamente")
+                .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            val builder = AlertDialog.Builder(this).setTitle("Error")
+                .setMessage("Ha ocurrido un error al intentar añadir la reserva")
+                .setNeutralButton("Entendido") { dialog, _ -> }.create().show()
+        }
     }
 
     private fun getAlojamiento(): DataClasses.alojamiento {

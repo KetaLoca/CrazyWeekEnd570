@@ -1,23 +1,16 @@
 package com.ketaloca.crazyweekend.controlador
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.ketaloca.crazyweekend.modelo.DataClasses
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
-import java.util.UUID
-import kotlin.streams.toList
 
 class FirebaseDriver {
-    private val db = Firebase.firestore
 
-    fun generateRandomID(): String {
-        return UUID.randomUUID().toString()
-    }
+    private val db = Firebase.firestore
 
     fun addUser(user: DataClasses.user, context: Context) {
         db.collection("users").document(user.email!!).set(user).addOnSuccessListener {
@@ -102,7 +95,6 @@ class FirebaseDriver {
         inicio: LocalDate,
         fin: LocalDate
     ): List<DataClasses.alojamiento> {
-        val rangoComprobar = inicio.datesUntil(fin.plusDays(1)).toList()
         val listAlojamientos = getAlojamientosList()
         val listaFiltrada = mutableListOf<DataClasses.alojamiento>()
         val collection = db.collection("reservas")
@@ -110,12 +102,15 @@ class FirebaseDriver {
         val listReservas = snapshot.documents.map { document ->
             document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
         }
+        var isAvailable = true
 
         for (alojamiento in listAlojamientos) {
-            var isAvailable = true
             for (reserva in listReservas) {
                 if (ComprobarRangos(inicio, fin, reserva)) {
                     isAvailable = false
+                    break
+                } else {
+                    isAvailable = true
                 }
             }
 
@@ -123,7 +118,7 @@ class FirebaseDriver {
                 listaFiltrada.add(alojamiento)
             }
         }
-        return listaFiltrada
+        return listaFiltrada.toList()
     }
 
     private fun ComprobarRangos(

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,6 +18,7 @@ import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.controlador.ReservaAdapter
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 import java.time.LocalDate
 import java.util.UUID
 
@@ -32,6 +34,7 @@ class ReservasActivity : AppCompatActivity() {
         }
         inicio()
     }
+
     private fun inicio() {
         initRecyclerView()
         val btnLogo: ImageView = findViewById(R.id.imgLogoAppReservas)
@@ -45,44 +48,23 @@ class ReservasActivity : AppCompatActivity() {
         val auth = FirebaseAuth.getInstance()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewReservas)
         val email = auth.currentUser!!.email
-        val list = getList()
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter =
-            ReservaAdapter(runBlocking { driver.getReservasByEmail(email!!) }) { reserva ->
-                onItemSelected(reserva)
-            }
+        try {
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter =
+                ReservaAdapter(runBlocking { driver.getReservasByEmail(email!!) }) { reserva ->
+                    onItemSelected(reserva)
+                }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            val builder = AlertDialog.Builder(this).setTitle("Error")
+                .setMessage("Ha ocurrido un error al iniciar el RecyclerView")
+                .setNeutralButton("Entendido") { dialog, _ -> }.create().show()
+        }
     }
 
     private fun onItemSelected(reserva: DataClasses.reserva) {
         val intent = Intent(this, ReservaActivity::class.java)
         intent.putExtra("idreserva", reserva.id)
         startActivity(intent)
-    }
-
-    private fun getList(): List<DataClasses.reserva> {
-        var list: List<DataClasses.reserva> = listOf(
-            DataClasses.reserva(
-                UUID.randomUUID().toString(),
-                "anfetas@gmail.com",
-                "2819ec71-bb95-4e9e-9a23-14d75cb5a9a6",
-                "",
-                ""
-            ),
-            DataClasses.reserva(
-                UUID.randomUUID().toString(),
-                "anfetas@gmail.com",
-                "2819ec71-bb95-4e9e-9a23-14d75cb5a9a6",
-                "",
-                ""
-            ),
-            DataClasses.reserva(
-                UUID.randomUUID().toString(),
-                "anfetas@gmail.com",
-                "2819ec71-bb95-4e9e-9a23-14d75cb5a9a6",
-                "",
-                ""
-            )
-        )
-        return list
     }
 }

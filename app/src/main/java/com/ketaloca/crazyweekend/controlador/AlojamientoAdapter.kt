@@ -7,7 +7,7 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.modelo.DataClasses
 
 class AlojamientoAdapter(
-    private val hotelesList: List<DataClasses.alojamiento>,
+    private var hotelesList: List<DataClasses.alojamiento>,
     private val onClickListener: (DataClasses.alojamiento) -> Unit
 ) :
     RecyclerView.Adapter<AlojamientoViewHolder>() {
@@ -25,6 +25,5 @@ class AlojamientoAdapter(
     override fun getItemCount(): Int {
         return hotelesList.size
     }
-
 
 }

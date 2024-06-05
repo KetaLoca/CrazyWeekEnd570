@@ -17,8 +17,8 @@ import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.controlador.AlojamientoAdapter
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 
 class AlojamientosActivity : AppCompatActivity() {
 
@@ -56,15 +56,22 @@ class AlojamientosActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        val recyclerView = findViewById<RecyclerView>(id.recyclerViewBuscar)
-        val driver = FirebaseDriver()
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter =
-            AlojamientoAdapter(runBlocking { driver.getAlojamientosList() }) { alojamiento ->
-                onItemSelected(
-                    alojamiento
-                )
-            }
+        try {
+            val recyclerView = findViewById<RecyclerView>(id.recyclerViewBuscar)
+            val driver = FirebaseDriver()
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter =
+                AlojamientoAdapter(runBlocking { driver.getAlojamientosList() }) { alojamiento ->
+                    onItemSelected(
+                        alojamiento
+                    )
+                }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            val builder = AlertDialog.Builder(this).setTitle("Error")
+                .setMessage("Ha ocurrido un error al iniciar el RecyclerView")
+                .setNeutralButton("Entendido") { dialog, _ -> }.create().show()
+        }
     }
 
     private fun onItemSelected(alojamiento: DataClasses.alojamiento) {
@@ -157,7 +164,6 @@ class AlojamientosActivity : AppCompatActivity() {
         if (comprobarInicio && comprobarFinal) {
 
             val driver = FirebaseDriver()
-
             val recyclerView = findViewById<RecyclerView>(id.recyclerViewBuscar)
             recyclerView.adapter =
                 AlojamientoAdapter(runBlocking {
