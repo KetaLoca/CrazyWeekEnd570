@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.controlador.FirebaseDriver
 import com.ketaloca.crazyweekend.modelo.DataClasses
+import kotlinx.coroutines.runBlocking
 import java.util.UUID
 
 class MainActivity : AppCompatActivity() {
@@ -30,14 +31,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun inicio() {
         title = "Home"
+        val driver = FirebaseDriver()
         val auth = FirebaseAuth.getInstance()
         val email: String? = auth.currentUser?.email
         val viewemail: TextView = findViewById(R.id.viewemail)
         val viewreservas: TextView = findViewById(R.id.viewreservas)
+        val reservas = runBlocking { driver.getReservasByEmail(email!!) }
 
-        if (email != null) {
-            viewemail.text = email
+        viewemail.text = email
+
+        if (reservas.isEmpty()) {
+            viewreservas.text = "No hay reservas aún"
+        } else {
+            viewreservas.text = "${reservas.size} reserva/s"
         }
+
     }
 
     private fun botones() {

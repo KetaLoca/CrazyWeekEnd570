@@ -49,7 +49,7 @@ class AlojamientosActivity : AppCompatActivity() {
         val dateInicio: EditText = findViewById(R.id.etDatePrueba)
         val dateFin: EditText = findViewById(R.id.etDateFinPrueba)
 
-        btnLogo.setOnClickListener { finish() }
+        btnLogo.setOnClickListener { parent.recreate() }
         dateInicio.setOnClickListener { showDatePickerDialogInicio() }
         dateFin.setOnClickListener { showDatePickerDialogFin() }
 

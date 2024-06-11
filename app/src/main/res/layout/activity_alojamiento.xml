@@ -51,8 +51,14 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="62dp" />
+            android:layout_height="10dp" />
 
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:translationX="105dp" />
 
         <TextView
             android:id="@+id/txtSelectedDate"
@@ -66,7 +72,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="10dp" />
 
         <Button
             android:id="@+id/btnReservar"

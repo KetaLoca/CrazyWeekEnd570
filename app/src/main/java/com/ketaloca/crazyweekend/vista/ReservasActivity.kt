@@ -39,7 +39,7 @@ class ReservasActivity : AppCompatActivity() {
         initRecyclerView()
         val btnLogo: ImageView = findViewById(R.id.imgLogoAppReservas)
         btnLogo.setOnClickListener {
-            finish()
+            parent.recreate()
         }
     }
 
