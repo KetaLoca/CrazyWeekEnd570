@@ -79,7 +79,10 @@ class AlojamientoActivity : AppCompatActivity() {
             driver.addReserva(reserva)
             val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
                 .setMessage("Reserva creada correctamente")
-                .setPositiveButton("Entendido") { dialog, _ -> finish() }.create().show()
+                .setPositiveButton("Entendido") { dialog, _ ->
+                    finish()
+                    parent.recreate()
+                }.create().show()
         } catch (e: Exception) {
             e.printStackTrace()
             val builder = AlertDialog.Builder(this).setTitle("Error")

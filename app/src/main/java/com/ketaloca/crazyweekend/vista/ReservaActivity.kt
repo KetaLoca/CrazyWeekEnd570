@@ -74,8 +74,7 @@ class ReservaActivity : AppCompatActivity() {
         val idReserva = intent.getStringExtra("idreserva")
 
         try {
-            driver.deleteReserva(idReserva!!)
-
+            runBlocking { driver.deleteReserva(idReserva!!) }
             val builder = AlertDialog.Builder(this).setTitle("Reserva eliminada")
                 .setMessage("Reserva eliminada correctamente")
                 .setPositiveButton("Entendido") { dialog, _ -> parent.recreate() }.create()

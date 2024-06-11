@@ -70,8 +70,8 @@ class FirebaseDriver {
         db.collection("reservas").document(reserva.id!!).set(reserva)
     }
 
-    fun deleteReserva(idReserva: String) {
-        db.collection("reservas").document(idReserva).delete()
+    suspend fun deleteReserva(idReserva: String) {
+        db.collection("reservas").document(idReserva).delete().await()
     }
 
     suspend fun getReserva(idReserva: String): DataClasses.reserva? {
