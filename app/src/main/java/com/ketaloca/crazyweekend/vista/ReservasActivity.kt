@@ -1,11 +1,9 @@
 package com.ketaloca.crazyweekend.vista
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,8 +17,6 @@ import com.ketaloca.crazyweekend.controlador.ReservaAdapter
 import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
 import java.lang.Exception
-import java.time.LocalDate
-import java.util.UUID
 
 class ReservasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +35,9 @@ class ReservasActivity : AppCompatActivity() {
         initRecyclerView()
         val btnLogo: ImageView = findViewById(R.id.imgLogoAppReservas)
         btnLogo.setOnClickListener {
-            parent.recreate()
+            parent.finish()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -62,7 +60,7 @@ class ReservasActivity : AppCompatActivity() {
         }
     }
 
-    private fun onItemSelected(reserva: DataClasses.reserva) {
+    private fun onItemSelected(reserva: DataClasses.Reserva) {
         val intent = Intent(this, ReservaActivity::class.java)
         intent.putExtra("idreserva", reserva.id)
         startActivity(intent)

@@ -49,7 +49,11 @@ class AlojamientosActivity : AppCompatActivity() {
         val dateInicio: EditText = findViewById(R.id.etDatePrueba)
         val dateFin: EditText = findViewById(R.id.etDateFinPrueba)
 
-        btnLogo.setOnClickListener { finish() }
+        btnLogo.setOnClickListener {
+            parent.finish()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         dateInicio.setOnClickListener { showDatePickerDialogInicio() }
         dateFin.setOnClickListener { showDatePickerDialogFin() }
 
@@ -74,7 +78,7 @@ class AlojamientosActivity : AppCompatActivity() {
         }
     }
 
-    private fun onItemSelected(alojamiento: DataClasses.alojamiento) {
+    private fun onItemSelected(alojamiento: DataClasses.Alojamiento) {
         if (comprobarFinal && comprobarInicio) {
             val intent = Intent(this, AlojamientoActivity::class.java)
             intent.putExtra("idAlojamiento", alojamiento.id)
@@ -144,9 +148,9 @@ class AlojamientosActivity : AppCompatActivity() {
         val date = LocalDate.of(year, mes, day)
         fechaInicio = date
 
-        etDate.setText("Día inicio reserva -> $date")
+        etDate.setText("Día inicio Reserva -> $date")
         comprobarInicio = true
-        actualizarLista()
+        //actualizarLista()
     }
 
     fun onDateSelectedFin(day: Int, month: Int, year: Int) {
@@ -155,9 +159,9 @@ class AlojamientosActivity : AppCompatActivity() {
         val date = LocalDate.of(year, mes, day)
         fechaFinal = date
 
-        etDateFin.setText("Día final reserva -> $date")
+        etDateFin.setText("Día final Reserva -> $date")
         comprobarFinal = true
-        actualizarLista()
+        //actualizarLista()
     }
 
     private fun actualizarLista() {

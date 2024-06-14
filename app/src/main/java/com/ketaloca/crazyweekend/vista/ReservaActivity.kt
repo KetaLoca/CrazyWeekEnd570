@@ -1,5 +1,6 @@
 package com.ketaloca.crazyweekend.vista
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -54,7 +55,7 @@ class ReservaActivity : AppCompatActivity() {
         btnEliminarReserva.setOnClickListener { eliminarReserva() }
     }
 
-    private fun getReserva(): DataClasses.reserva {
+    private fun getReserva(): DataClasses.Reserva {
         val driver = FirebaseDriver()
         val idReserva = intent.getStringExtra("idreserva")
         val reserva = runBlocking { driver.getReserva(idReserva!!) }
@@ -62,7 +63,7 @@ class ReservaActivity : AppCompatActivity() {
         return reserva!!
     }
 
-    private fun getAlojamiento(id: String): DataClasses.alojamiento {
+    private fun getAlojamiento(id: String): DataClasses.Alojamiento {
         val driver = FirebaseDriver()
         val alojamiento = runBlocking { driver.getAlojamiento(id) }
 
@@ -74,15 +75,19 @@ class ReservaActivity : AppCompatActivity() {
         val idReserva = intent.getStringExtra("idreserva")
 
         try {
-            runBlocking { driver.deleteReserva(idReserva!!) }
+            driver.deleteReserva(idReserva!!)
             val builder = AlertDialog.Builder(this).setTitle("Reserva eliminada")
                 .setMessage("Reserva eliminada correctamente")
-                .setPositiveButton("Entendido") { dialog, _ -> parent.recreate() }.create()
+                .setPositiveButton("Entendido") { dialog, _ ->
+                    parent.finish()
+                    val intent = Intent(this, ReservasActivity::class.java)
+                    startActivity(intent)
+                }.create()
                 .show()
         } catch (e: Exception) {
             e.printStackTrace()
             val builder = AlertDialog.Builder(this).setTitle("Error")
-                .setMessage("Ha ocurrido un error al eliminar la reserva")
+                .setMessage("Ha ocurrido un error al eliminar la Reserva")
                 .setNeutralButton("Entendido") { dialog, _ -> }.create().show()
         }
     }

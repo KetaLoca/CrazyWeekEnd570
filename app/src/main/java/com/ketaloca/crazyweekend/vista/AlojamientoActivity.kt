@@ -1,8 +1,8 @@
 package com.ketaloca.crazyweekend.vista
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +17,6 @@ import com.ketaloca.crazyweekend.modelo.DataClasses
 import kotlinx.coroutines.runBlocking
 import java.lang.Exception
 import java.time.LocalDate
-import java.time.Period
 import java.util.UUID
 
 class AlojamientoActivity : AppCompatActivity() {
@@ -68,7 +67,7 @@ class AlojamientoActivity : AppCompatActivity() {
             val fechaFinal: LocalDate = LocalDate.parse(intent.getStringExtra("fechaFinal"))
             val email = auth.currentUser?.email
 
-            val reserva: DataClasses.reserva = DataClasses.reserva(
+            val reserva: DataClasses.Reserva = DataClasses.Reserva(
                 UUID.randomUUID().toString(),
                 email,
                 idAlojamiento,
@@ -80,18 +79,19 @@ class AlojamientoActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
                 .setMessage("Reserva creada correctamente")
                 .setPositiveButton("Entendido") { dialog, _ ->
-                    finish()
-                    parent.recreate()
+                    parent.parent.finish()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }.create().show()
         } catch (e: Exception) {
             e.printStackTrace()
             val builder = AlertDialog.Builder(this).setTitle("Error")
-                .setMessage("Ha ocurrido un error al intentar añadir la reserva")
+                .setMessage("Ha ocurrido un error al intentar añadir la Reserva")
                 .setNeutralButton("Entendido") { dialog, _ -> }.create().show()
         }
     }
 
-    private fun getAlojamiento(): DataClasses.alojamiento {
+    private fun getAlojamiento(): DataClasses.Alojamiento {
         val driver = FirebaseDriver()
         val idAlojamiento = intent.getStringExtra("idAlojamiento")
         val alojamiento = runBlocking { driver.getAlojamiento(idAlojamiento!!) }

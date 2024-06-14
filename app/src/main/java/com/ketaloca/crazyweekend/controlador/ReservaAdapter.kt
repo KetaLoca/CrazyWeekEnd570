@@ -7,8 +7,8 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.modelo.DataClasses
 
 class ReservaAdapter(
-    private val reservasList: List<DataClasses.reserva>,
-    private val onClickListener: (DataClasses.reserva) -> Unit
+    private val reservasList: List<DataClasses.Reserva>,
+    private val onClickListener: (DataClasses.Reserva) -> Unit
 ) : RecyclerView.Adapter<ReservaViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservaViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

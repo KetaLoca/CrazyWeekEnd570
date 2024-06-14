@@ -73,11 +73,11 @@ class AccountActivity : AppCompatActivity() {
 
     }
 
-    private fun recogerUser(): DataClasses.user {
+    private fun recogerUser(): DataClasses.User {
         val txtemail: TextView = findViewById(R.id.txtemail)
         val txtnombre: EditText = findViewById(R.id.txtnombre)
         val txtapellidos: EditText = findViewById(R.id.txtapellidos)
-        val user = DataClasses.user(
+        val user = DataClasses.User(
             txtemail.text.toString(),
             txtnombre.text.toString(),
             txtapellidos.text.toString()
@@ -126,7 +126,7 @@ class AccountActivity : AppCompatActivity() {
 
         txtemail.text = email
         if (email != null) {
-            val user: DataClasses.user? = runBlocking { driver.getUser(email) }
+            val user: DataClasses.User? = runBlocking { driver.getUser(email) }
             if (user != null) {
                 txtnombre.setText(user.nombre)
                 txtapellidos.setText(user.apellidos)

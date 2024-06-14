@@ -7,8 +7,8 @@ import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.modelo.DataClasses
 
 class AlojamientoAdapter(
-    private var hotelesList: List<DataClasses.alojamiento>,
-    private val onClickListener: (DataClasses.alojamiento) -> Unit
+    private var hotelesList: List<DataClasses.Alojamiento>,
+    private val onClickListener: (DataClasses.Alojamiento) -> Unit
 ) :
     RecyclerView.Adapter<AlojamientoViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlojamientoViewHolder {

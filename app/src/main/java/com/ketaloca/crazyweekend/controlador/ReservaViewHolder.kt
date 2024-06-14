@@ -14,7 +14,7 @@ class ReservaViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val descripcion = view.findViewById<TextView>(R.id.txtDescripcionReserva)
     val fechaReserva = view.findViewById<TextView>(R.id.txtFechaReserva)
 
-    fun render(reservaModel: DataClasses.reserva, onClickListener: (DataClasses.reserva) -> Unit) {
+    fun render(reservaModel: DataClasses.Reserva, onClickListener: (DataClasses.Reserva) -> Unit) {
         val driver = FirebaseDriver()
         val alojamiento = runBlocking { driver.getAlojamiento(reservaModel.idalojamiento!!) }
         nombre.text = alojamiento!!.nombre

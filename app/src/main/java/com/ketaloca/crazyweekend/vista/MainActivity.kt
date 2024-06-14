@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         if (reservas.isEmpty()) {
             viewreservas.text = "No hay reservas aún"
         } else {
-            viewreservas.text = "${reservas.size} reserva/s"
+            viewreservas.text = "${reservas.size} Reserva/s"
         }
 
     }

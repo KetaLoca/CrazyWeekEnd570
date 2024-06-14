@@ -4,13 +4,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.google.firebase.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.storage
 import com.ketaloca.crazyweekend.R
 import com.ketaloca.crazyweekend.modelo.DataClasses
-import com.ketaloca.crazyweekend.vista.AlojamientosActivity
 
 class AlojamientoViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
@@ -22,8 +18,8 @@ class AlojamientoViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val descripcion = view.findViewById<TextView>(R.id.txtDescripcionReserva)
 
     fun render(
-        alojamientoModel: DataClasses.alojamiento,
-        onClickListener: (DataClasses.alojamiento) -> Unit
+        alojamientoModel: DataClasses.Alojamiento,
+        onClickListener: (DataClasses.Alojamiento) -> Unit
     ) {
         nombre.text = alojamientoModel.nombre
         descripcion.text = alojamientoModel.descripcion

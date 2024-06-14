@@ -12,7 +12,7 @@ class FirebaseDriver {
 
     private val db = Firebase.firestore
 
-    fun addUser(user: DataClasses.user, context: Context) {
+    fun addUser(user: DataClasses.User, context: Context) {
         db.collection("users").document(user.email!!).set(user).addOnSuccessListener {
             val builder = androidx.appcompat.app.AlertDialog.Builder(context)
                 .setTitle("Usuario actualizado")
@@ -38,55 +38,55 @@ class FirebaseDriver {
         db.collection("users").document(email).delete()
     }
 
-    suspend fun getUser(email: String?): DataClasses.user? {
+    suspend fun getUser(email: String?): DataClasses.User? {
         val docRef = db.collection("users").document(email!!)
         val document = docRef.get().await()
 
-        return document.toObject<DataClasses.user>()
+        return document.toObject<DataClasses.User>()
     }
 
-    fun addAlojammiento(alojamiento: DataClasses.alojamiento) {
+    fun addAlojammiento(alojamiento: DataClasses.Alojamiento) {
         db.collection("alojamientos").document(alojamiento.id!!).set(alojamiento)
     }
 
-    suspend fun getAlojamiento(idAlojamiento: String): DataClasses.alojamiento? {
+    suspend fun getAlojamiento(idAlojamiento: String): DataClasses.Alojamiento? {
         val docRef = db.collection("alojamientos").document(idAlojamiento)
         val document = docRef.get().await()
 
-        return document.toObject<DataClasses.alojamiento>()
+        return document.toObject<DataClasses.Alojamiento>()
     }
 
 
-    suspend fun getAlojamientosList(): List<DataClasses.alojamiento> {
+    suspend fun getAlojamientosList(): List<DataClasses.Alojamiento> {
         val collectionRef = db.collection("alojamientos")
         val snapshot = collectionRef.get().await()
 
         return snapshot.documents.map { document ->
-            document.toObject<DataClasses.alojamiento>() ?: DataClasses.alojamiento()
+            document.toObject<DataClasses.Alojamiento>() ?: DataClasses.Alojamiento()
         }
     }
 
-    fun addReserva(reserva: DataClasses.reserva) {
+    fun addReserva(reserva: DataClasses.Reserva) {
         db.collection("reservas").document(reserva.id!!).set(reserva)
     }
 
-    suspend fun deleteReserva(idReserva: String) {
-        db.collection("reservas").document(idReserva).delete().await()
+    fun deleteReserva(idReserva: String) {
+        db.collection("reservas").document(idReserva).delete()
     }
 
-    suspend fun getReserva(idReserva: String): DataClasses.reserva? {
+    suspend fun getReserva(idReserva: String): DataClasses.Reserva? {
         val docRef = db.collection("reservas").document(idReserva)
         val document = docRef.get().await()
 
-        return document.toObject<DataClasses.reserva>()
+        return document.toObject<DataClasses.Reserva>()
     }
 
-    suspend fun getReservasByEmail(email: String): List<DataClasses.reserva> {
+    suspend fun getReservasByEmail(email: String): List<DataClasses.Reserva> {
         val collection = db.collection("reservas").whereEqualTo("emailuser", email)
         val snapshot = collection.get().await()
 
         return snapshot.documents.map { document ->
-            document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
+            document.toObject<DataClasses.Reserva>() ?: DataClasses.Reserva()
         }
 
     }
@@ -94,13 +94,13 @@ class FirebaseDriver {
     suspend fun updateAlojamientos(
         inicio: LocalDate,
         fin: LocalDate
-    ): List<DataClasses.alojamiento> {
+    ): List<DataClasses.Alojamiento> {
         val listAlojamientos = getAlojamientosList()
-        val listaFiltrada = mutableListOf<DataClasses.alojamiento>()
+        val listaFiltrada = mutableListOf<DataClasses.Alojamiento>()
         val collection = db.collection("reservas")
         val snapshot = collection.get().await()
         val listReservas = snapshot.documents.map { document ->
-            document.toObject<DataClasses.reserva>() ?: DataClasses.reserva()
+            document.toObject<DataClasses.Reserva>() ?: DataClasses.Reserva()
         }
         var isAvailable = true
 
@@ -124,7 +124,7 @@ class FirebaseDriver {
     private fun ComprobarRangos(
         inicio: LocalDate,
         fin: LocalDate,
-        reserva: DataClasses.reserva
+        reserva: DataClasses.Reserva
     ): Boolean {
         var comprobar = false
         if (inicio <= LocalDate.parse(reserva.fechaInicio) && fin >= LocalDate.parse(reserva.fechaFin)) {

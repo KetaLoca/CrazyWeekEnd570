@@ -1,21 +1,23 @@
 package com.ketaloca.crazyweekend.modelo
 
 class DataClasses {
-    data class user(
+    data class User(
         val email: String? = null,
-        var nombre: String? = null,
-        var apellidos: String? = null
+        val nombre: String? = null,
+        val apellidos: String? = null,
+        val telefono: Int? = null
     )
 
 
-    data class alojamiento(
+    data class Alojamiento(
         val id: String? = null,
         val nombre: String? = null,
         val descripcion: String? = null,
+        val precio: Float? = null,
         val img: String? = null
     )
 
-    data class reserva(
+    data class Reserva(
         val id: String? = null,
         val emailuser: String? = null,
         val idalojamiento: String? = null,
