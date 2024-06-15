@@ -32,7 +32,7 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/imgHotel"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Anfetas" />
+            tools:text="Alojamiento" />
 
         <TextView
             android:id="@+id/txtDescripcionReserva"
@@ -43,7 +43,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@+id/imgHotel"
             app:layout_constraintTop_toBottomOf="@+id/txtNombre"
-            tools:text="Locas" />
+            tools:text="Descripción" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

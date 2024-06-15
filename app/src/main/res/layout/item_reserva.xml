@@ -33,7 +33,7 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/imgReserva"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Anfetas" />
+            tools:text="Nombre" />
 
         <TextView
             android:id="@+id/txtDescripcionReserva"
@@ -44,7 +44,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@+id/imgReserva"
             app:layout_constraintTop_toBottomOf="@+id/txtNombreReserva"
-            tools:text="Locas" />
+            tools:text="Descripción" />
 
         <TextView
             android:id="@+id/txtFechaReserva"
