@@ -35,7 +35,8 @@ class ReservasActivity : AppCompatActivity() {
         initRecyclerView()
         val btnLogo: ImageView = findViewById(R.id.imgLogoAppReservas)
         btnLogo.setOnClickListener {
-            parent.finish()
+            finish()
+            finish()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

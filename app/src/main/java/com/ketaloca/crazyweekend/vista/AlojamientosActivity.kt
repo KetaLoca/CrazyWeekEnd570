@@ -50,7 +50,8 @@ class AlojamientosActivity : AppCompatActivity() {
         val dateFin: EditText = findViewById(R.id.etDateFinPrueba)
 
         btnLogo.setOnClickListener {
-            parent.finish()
+            finish()
+            finish()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

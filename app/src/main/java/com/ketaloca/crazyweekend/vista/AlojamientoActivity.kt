@@ -79,7 +79,9 @@ class AlojamientoActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this).setTitle("Reserva añadida")
                 .setMessage("Reserva creada correctamente")
                 .setPositiveButton("Entendido") { dialog, _ ->
-                    parent.parent.finish()
+                    finish()
+                    finish()
+                    finish()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }.create().show()

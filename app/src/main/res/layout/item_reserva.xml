@@ -54,7 +54,7 @@
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgReserva"
-            tools:text="Locas" />
+            tools:text="Fecha" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
